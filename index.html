@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buggu Marvel University ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+:root{
+    --pink:#f6dce8;
+    --pink2:#f9edf3;
+    --lavender:#e7def6;
+    --blue:#dcecf5;
+    --mint:#dcefe8;
+    --peach:#f9e2d5;
+    --cream:#fffaf5;
+    --text:#403747;
+    --muted:#807487;
+    --white:#ffffff;
+    --accent:#c98eaa;
+    --border:rgba(90,70,90,.12);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:'DM Sans',sans-serif;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 10% 10%, #f8dce9 0, transparent 25%),
+        radial-gradient(circle at 90% 20%, #ded8f3 0, transparent 25%),
+        radial-gradient(circle at 50% 100%, #dcefe8 0, transparent 30%),
+        var(--cream);
+    min-height:100vh;
+}
+
+button,input,select,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.container{
+    width:min(1100px,92%);
+    margin:auto;
+}
+
+header{
+    padding:28px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-family:'Playfair Display',serif;
+    font-size:22px;
+}
+
+.logo span{
+    color:#c47f9e;
+}
+
+.nav{
+    display:flex;
+    gap:8px;
+}
+
+.nav button{
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.65);
+    padding:9px 14px;
+    border-radius:999px;
+    color:var(--text);
+}
+
+.nav button:hover{
+    background:var(--white);
+}
+
+.hero{
+    border:1px solid var(--border);
+    border-radius:32px;
+    padding:55px 45px;
+    background:linear-gradient(135deg,
+        rgba(246,220,232,.85),
+        rgba(231,222,246,.8),
+        rgba(220,239,232,.75));
+    margin-bottom:25px;
+}
+
+.eyebrow{
+    display:inline-block;
+    background:rgba(255,255,255,.65);
+    padding:7px 13px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.5px;
+    margin-bottom:18px;
+}
+
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(42px,7vw,76px);
+    line-height:.95;
+    max-width:750px;
+}
+
+.hero p{
+    max-width:650px;
+    margin-top:20px;
+    color:var(--muted);
+    font-size:17px;
+    line-height:1.7;
+}
+
+.hero-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:30px;
+}
+
+.primary{
+    background:#b97898;
+    color:white;
+    border:0;
+    padding:13px 21px;
+    border-radius:999px;
+    font-weight:700;
+}
+
+.secondary{
+    background:rgba(255,255,255,.7);
+    color:var(--text);
+    border:1px solid var(--border);
+    padding:13px 21px;
+    border-radius:999px;
+}
+
+.progress-box{
+    margin-top:35px;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+    font-size:14px;
+}
+
+.progress{
+    height:12px;
+    background:rgba(255,255,255,.65);
+    border-radius:99px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:#b97898;
+    border-radius:99px;
+    transition:.5s ease;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:35px;
+}
+
+.stat{
+    background:rgba(255,255,255,.72);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:20px;
+}
+
+.stat-label{
+    font-size:13px;
+    color:var(--muted);
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:700;
+    margin-top:5px;
+}
+
+.section{
+    margin:45px 0;
+}
+
+.section-title{
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+    margin-bottom:7px;
+}
+
+.section-sub{
+    color:var(--muted);
+    margin-bottom:22px;
+}
+
+.projects{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.project{
+    background:rgba(255,255,255,.78);
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:24px;
+    transition:.25s ease;
+}
+
+.project:hover{
+    transform:translateY(-3px);
+}
+
+.project-top{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.year{
+    font-size:13px;
+    color:var(--muted);
+}
+
+.project h3{
+    font-family:'Playfair Display',serif;
+    font-size:25px;
+    margin-top:5px;
+}
+
+.tag{
+    height:max-content;
+    background:var(--pink2);
+    border-radius:999px;
+    padding:7px 10px;
+    font-size:11px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.note{
+    color:var(--muted);
+    line-height:1.6;
+    margin:15px 0;
+}
+
+.controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+label{
+    font-size:12px;
+    color:var(--muted);
+}
+
+select,textarea{
+    width:100%;
+    border:1px solid var(--border);
+    background:white;
+    border-radius:12px;
+    padding:10px;
+    margin-top:5px;
+    color:var(--text);
+}
+
+.watch{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:16px;
+    font-size:14px;
+    color:var(--text);
+}
+
+.watch input{
+    width:18px;
+    height:18px;
+    accent-color:#b97898;
+}
+
+.fact{
+    margin-top:16px;
+    background:linear-gradient(135deg,var(--blue),var(--lavender));
+    border-radius:17px;
+    padding:15px;
+}
+
+.fact-title{
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.achievements{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.achievement{
+    background:rgba(255,255,255,.72);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:20px;
+}
+
+.achievement.locked{
+    opacity:.45;
+}
+
+.achievement-icon{
+    font-size:28px;
+}
+
+.achievement h4{
+    margin-top:8px;
+}
+
+.achievement p{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:5px;
+    line-height:1.5;
+}
+
+.quote{
+    background:linear-gradient(135deg,var(--peach),var(--pink));
+    border-radius:28px;
+    padding:30px;
+    line-height:1.7;
+}
+
+.quote strong{
+    display:block;
+    margin-bottom:8px;
+}
+
+footer{
+    text-align:center;
+    padding:50px 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.hidden{
+    display:none;
+}
+
+@media(max-width:750px){
+    .nav{
+        display:none;
+    }
+
+    .hero{
+        padding:35px 25px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .projects{
+        grid-template-columns:1fr;
+    }
+
+    .achievements{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:48px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <div class="logo">Buggu <span>Marvel University</span> ❤️</div>
+
+    <div class="nav">
+        <button onclick="scrollToSection('journey')">Journey</button>
+        <button onclick="scrollToSection('achievements')">Achievements</button>
+        <button onclick="scrollToSection('about')">About</button>
+    </div>
+</header>
+
+<main>
+
+<section class="hero">
+
+    <div class="eyebrow">💌 MADE BY ANSH FOR MIYA</div>
+
+    <h1>
+        Welcome to your Marvel universe.
+    </h1>
+
+    <p>
+        A completely unnecessary amount of Marvel homework,
+        lovingly assigned by your boyfriend.
+        Some you'll love, some you'll hate,
+        and some we're absolutely watching together.
+    </p>
+
+    <div class="hero-buttons">
+        <button class="primary" onclick="scrollToSection('journey')">
+            🎬 Start the Journey
+        </button>
+
+        <button class="secondary" onclick="randomMovie()">
+            🎲 Pick Something For Me
+        </button>
+    </div>
+
+    <div class="progress-box">
+
+        <div class="progress-top">
+            <span>Your Marvel Journey</span>
+            <strong id="progressText">0 / 12</strong>
+        </div>
+
+        <div class="progress">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="stats">
+
+    <div class="stat">
+        <div class="stat-label">Watched</div>
+        <div class="stat-number" id="watchedCount">0</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">Completion</div>
+        <div class="stat-number" id="completion">0%</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">Average Rating</div>
+        <div class="stat-number" id="averageRating">—</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">Achievements</div>
+        <div class="stat-number" id="achievementCount">0 / 5</div>
+    </div>
+
+</section>
+
+
+<section class="section" id="journey">
+
+    <h2 class="section-title">🎬 The Journey Begins</h2>
+
+    <p class="section-sub">
+        Start here. Don't worry Miya — Ansh will tell you which ones matter. 😂
+    </p>
+
+    <div class="projects" id="projects"></div>
+
+</section>
+
+
+<section class="section" id="achievements">
+
+    <h2 class="section-title">🏆 Marvel Achievements</h2>
+
+    <p class="section-sub">
+        Because apparently watching movies wasn't enough.
+    </p>
+
+    <div class="achievements" id="achievementList"></div>
+
+</section>
+
+
+<section class="section" id="about">
+
+    <div class="quote">
+
+        <strong>💌 A message from Ansh</strong>
+
+        I made this because I want you to experience
+        all the Marvel things I've spent way too much of my life
+        obsessing over.
+
+        <br><br>
+
+        Some of these are here because they're genuinely amazing.
+
+        Some are here because they're important.
+
+        And some are here because I specifically want to watch them
+        with you.
+
+        <br><br>
+
+        Good luck.
+
+        ❤️
+
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    Made with questionable amounts of Marvel knowledge by Ansh ❤️
+</footer>
+
+</div>
+
+
+<script>
+
+const projects = [
+
+    {
+        id:1,
+        title:"Iron Man",
+        year:2008,
+        tag:"🐐 ONE OF THE LEGENDS",
+        note:"This is where everything begins. I REALLY want you to tell me what you think about Tony.",
+        fact:"Robert Downey Jr. wasn't Marvel's only consideration for Tony Stark. His casting became one of the most important decisions in the MCU's history.",
+        important:true
+    },
+
+    {
+        id:2,
+        title:"The Incredible Hulk",
+        year:2008,
+        tag:"😐 MEH… BUT WE MOVE",
+        note:"Not my favourite, but we're committed to the mission.",
+        fact:"Edward Norton played Bruce Banner in this film before Mark Ruffalo eventually took over the role.",
+        important:false
+    },
+
+    {
+        id:3,
+        title:"Iron Man 2",
+        year:2010,
+        tag:"❤️ WATCH WITH ME",
+        note:"There are things in here you'll appreciate later. Trust me.",
+        fact:"Iron Man 2 helped introduce Black Widow and expanded the connections that would eventually lead toward The Avengers.",
+        important:true
+    },
+
+    {
+        id:4,
+        title:"Thor",
+        year:2011,
+        tag:"👀 PAY ATTENTION",
+        note:"Meet someone who becomes VERY important.",
+        fact:"Thor was directed by Kenneth Branagh, who was already famous for his work adapting Shakespeare.",
+        important:true
+    },
+
+    {
+        id:5,
+        title:"Captain America: The First Avenger",
+        year:2011,
+        tag:"💖 PLEASE WATCH FOR ME",
+        note:"This one has a special place in my Marvel brain.",
+        fact:"Chris Evans initially hesitated to accept the role of Captain America before eventually signing on.",
+        important:true
+    },
+
+    {
+        id:6,
+        title:"The Avengers",
+        year:2012,
+        tag:"🔥 YOU MADE IT",
+        note:"Okay. NOW it starts getting serious.",
+        fact:"The Avengers became the first Marvel Studios movie to cross $1 billion worldwide.",
+        important:true
+    },
+
+    {
+        id:7,
+        title:"Iron Man 3",
+        year:2013,
+        tag:"😂 JUST WATCH IT",
+        note:"Don't Google anything beforehand.",
+        fact:"Iron Man 3 was the first Marvel Studios film released after The Avengers.",
+        important:false
+    },
+
+    {
+        id:8,
+        title:"Thor: The Dark World",
+        year:2013,
+        tag:"💀 GOOD LUCK",
+        note:"We have to suffer together.",
+        fact:"Some of the film's major sequences were filmed in London and other locations across England.",
+        important:false
+    },
+
+    {
+        id:9,
+        title:"Captain America: The Winter Soldier",
+        year:2014,
+        tag:"🐐 ABSOLUTE LEGEND",
+        note:"One of the ones I am MOST excited for you to see.",
+        fact:"The movie drew heavily from political thriller and conspiracy-film influences rather than feeling like a traditional superhero movie.",
+        important:true
+    },
+
+    {
+        id:10,
+        title:"Guardians of the Galaxy",
+        year:2014,
+        tag:"❤️ YOU NEED TO SEE THIS",
+        note:"Please report your favourite Guardian immediately.",
+        fact:"Before the movie, many audiences knew very little about the Guardians of the Galaxy compared with Marvel's bigger heroes.",
+        important:true
+    },
+
+    {
+        id:11,
+        title:"Avengers: Age of Ultron",
+        year:2015,
+        tag:"👀 PAY ATTENTION",
+        note:"Things are about to get MUCH bigger.",
+        fact:"The film introduced several major characters who would become important parts of the MCU.",
+        important:true
+    },
+
+    {
+        id:12,
+        title:"Ant-Man",
+        year:2015,
+        tag:"😂 FUN ONE",
+        note:"Tiny man. Big responsibilities.",
+        fact:"Ant-Man was developed at Marvel for many years before finally reaching the screen.",
+        important:false
+    }
+
+];
+
+
+let watched =
+    JSON.parse(localStorage.getItem("bugguWatched")) || {};
+
+let ratings =
+    JSON.parse(localStorage.getItem("bugguRatings")) || {};
+
+
+function renderProjects(){
+
+    const container =
+        document.getElementById("projects");
+
+    container.innerHTML = "";
+
+    projects.forEach(movie => {
+
+        const card =
+            document.createElement("article");
+
+        card.className = "project";
+
+        card.innerHTML = `
+
+            <div class="project-top">
+
+                <div>
+
+                    <div class="year">
+                        ${movie.year} • Marvel
+                    </div>
+
+                    <h3>
+                        ${movie.title}
+                    </h3>
+
+                </div>
+
+                <div class="tag">
+                    ${movie.tag}
+                </div>
+
+            </div>
+
+            <p class="note">
+                ${movie.note}
+            </p>
+
+            <div class="fact">
+
+                <div class="fact-title">
+                    🔎 DID YOU KNOW?
+                </div>
+
+                ${movie.fact}
+
+            </div>
+
+            <div class="controls">
+
+                <label>
+                    Your rating
+
+                    <select
+                        onchange="rateMovie(${movie.id}, this.value)"
+                    >
+
+                        <option value="">
+                            Not rated
+                        </option>
+
+                        ${[1,2,3,4,5,6,7,8,9,10]
+                        .map(number => `
+                            <option
+                                value="${number}"
+                                ${ratings[movie.id] == number ? "selected" : ""}
+                            >
+                                ${number}/10
+                            </option>
+                        `).join("")}
+
+                    </select>
+
+                </label>
+
+            </div>
+
+            <label class="watch">
+
+                <input
+                    type="checkbox"
+                    ${watched[movie.id] ? "checked" : ""}
+                    onchange="toggleWatched(${movie.id}, this.checked)"
+                >
+
+                I watched it ❤️
+
+            </label>
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+function toggleWatched(id, value){
+
+    watched[id] = value;
+
+    localStorage.setItem(
+        "bugguWatched",
+        JSON.stringify(watched)
+    );
+
+    updateStats();
+
+}
+
+
+function rateMovie(id, value){
+
+    if(value === ""){
+        delete ratings[id];
+    }else{
+        ratings[id] = Number(value);
+    }
+
+    localStorage.setItem(
+        "bugguRatings",
+        JSON.stringify(ratings)
+    );
+
+    updateStats();
+
+}
+
+
+function updateStats(){
+
+    const watchedCount =
+        Object.values(watched)
+        .filter(Boolean).length;
+
+    const total =
+        projects.length;
+
+    const percentage =
+        Math.round((watchedCount / total) * 100);
+
+    document.getElementById("watchedCount")
+        .textContent = watchedCount;
+
+    document.getElementById("completion")
+        .textContent = percentage + "%";
+
+    document.getElementById("progressText")
+        .textContent =
+        watchedCount + " / " + total;
+
+    document.getElementById("progressBar")
+        .style.width = percentage + "%";
+
+
+    const rated =
+        Object.values(ratings)
+        .filter(Boolean);
+
+    if(rated.length){
+
+        const average =
+            rated.reduce((a,b) => a+b,0)
+            / rated.length;
+
+        document.getElementById("averageRating")
+            .textContent =
+            average.toFixed(1);
+
+    }else{
+
+        document.getElementById("averageRating")
+            .textContent = "—";
+
+    }
+
+    updateAchievements(watchedCount);
+
+}
+
+
+function updateAchievements(count){
+
+    const achievements = [
+
+        {
+            icon:"🥉",
+            title:"First Blood",
+            text:"Watch your first Marvel project.",
+            unlocked:count >= 1
+        },
+
+        {
+            icon:"🍿",
+            title:"Getting Serious",
+            text:"Watch 5 Marvel projects.",
+            unlocked:count >= 5
+        },
+
+        {
+            icon:"🦸‍♀️",
+            title:"Marvel Girl",
+            text:"Watch 10 Marvel projects.",
+            unlocked:count >= 10
+        },
+
+        {
+            icon:"🔥",
+            title:"True Believer",
+            text:"Watch every project currently in your journey.",
+            unlocked:count >= projects.length
+        },
+
+        {
+            icon:"👑",
+            title:"Multiverse Survivor",
+            text:"Complete the entire Marvel journey.",
+            unlocked:count >= projects.length
+        }
+
+    ];
+
+    const container =
+        document.getElementById("achievementList");
+
+    container.innerHTML = "";
+
+    let unlocked = 0;
+
+    achievements.forEach(a => {
+
+        if(a.unlocked) unlocked++;
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "achievement " +
+            (a.unlocked ? "" : "locked");
+
+        card.innerHTML = `
+
+            <div class="achievement-icon">
+                ${a.icon}
+            </div>
+
+            <h4>
+                ${a.title}
+            </h4>
+
+            <p>
+                ${a.text}
+            </p>
+
+            <p>
+                ${a.unlocked ? "✅ UNLOCKED" : "🔒 LOCKED"}
+            </p>
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+    document.getElementById("achievementCount")
+        .textContent =
+        unlocked + " / " + achievements.length;
+
+}
+
+
+function scrollToSection(id){
+
+    document.getElementById(id)
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+function randomMovie(){
+
+    const remaining =
+        projects.filter(movie =>
+            !watched[movie.id]
+        );
+
+    if(!remaining.length){
+
+        alert(
+            "Miya has survived everything! 👑"
+        );
+
+        return;
+    }
+
+    const chosen =
+        remaining[
+            Math.floor(
+                Math.random() * remaining.length
+            )
+        ];
+
+    alert(
+        "🎬 Tonight's mission:\n\n" +
+        chosen.title +
+        "\n\n" +
+        chosen.tag
+    );
+
+}
+
+
+renderProjects();
+
+updateStats();
+
+</script>
+
+</body>
+</html>
