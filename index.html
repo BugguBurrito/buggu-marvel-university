@@ -322,7 +322,7 @@ footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13
 const DEFAULT_PIN = "1234";
 let currentUniverse = "all";
 
-// PHASE 1 DATA STRUCTURE (Embedded here for simple copy-paste for now)
+// PHASE 1 DATA STRUCTURE
 const projects = [
   {id:1, universe:"mcu", title:"Iron Man", year:2008, tag:"🐐 ONE OF THE LEGENDS", type:"legend", mine:true, rating:9.5, note:"This is where everything begins. I REALLY want you to tell me what you think about Tony.", fact:"Robert Downey Jr. became one of the most important casting choices in the MCU's history.", symbol:"◉"},
   {id:2, universe:"mcu", title:"The Incredible Hulk", year:2008, tag:"😐 MEH… BUT WE MOVE", type:"meh", mine:false, rating:5.5, note:"Not my favourite, but we're committed to the mission.", fact:"Edward Norton played Bruce Banner before Mark Ruffalo eventually took over the role.", symbol:"◆"},
@@ -330,8 +330,6 @@ const projects = [
   {id:4, universe:"mcu", title:"Thor", year:2011, tag:"👀 PAY ATTENTION", type:"important", mine:false, rating:7.5, note:"Meet someone who becomes VERY important.", fact:"Kenneth Branagh directed Thor and brought a Shakespearean sensibility to Asgard.", symbol:"⌁"},
   {id:5, universe:"mcu", title:"Captain America: The First Avenger", year:2011, tag:"💖 PLEASE WATCH FOR ME", type:"mine", mine:true, rating:8.5, note:"This one has a special place in my Marvel brain.", fact:"Chris Evans initially hesitated to accept the role of Captain America.", symbol:"✚"},
   {id:6, universe:"mcu", title:"The Avengers", year:2012, tag:"🔥 YOU MADE IT", type:"legend", mine:true, rating:9, note:"Okay. NOW it starts getting serious.", fact:"The Avengers became the first Marvel Studios movie to cross $1 billion worldwide.", symbol:"A"},
-  
-  // Quick examples to prove the Universe Tabs work
   {id:101, universe:"sony", title:"Spider-Man", year:2002, tag:"🕸️ CLASSIC", type:"fun", mine:true, rating:8.0, note:"The classic Tobey Maguire era. With great power...", fact:"The famous upside-down kiss scene was filmed while Tobey Maguire's sinuses were filling up with rainwater.", symbol:"🕸"},
   {id:201, universe:"fox", title:"X-Men", year:2000, tag:"❌ MUTANTS", type:"important", mine:false, rating:7.5, note:"The movie that kicked off the modern superhero craze.", fact:"Hugh Jackman was cast as Wolverine very late in production, replacing Dougray Scott.", symbol:"X"}
 ];
@@ -479,7 +477,7 @@ function closeWatchModal() { document.getElementById("watchModal").classList.rem
 function spawnRareVisitor() {
   const egg = document.createElement("div");
   egg.className = "rare-visitor";
-  egg.textContent = "🐜"; // Ant-Man!
+  egg.textContent = "🐜"; 
   egg.onclick = () => {
     egg.classList.add("discovered");
     state.secrets = (state.secrets || 0) + 1;
@@ -504,23 +502,38 @@ function login() {
   document.getElementById("controlBox").classList.remove("hidden");
   renderControls();
 }
+
 function renderControls() {
   if (document.getElementById("controlBox").classList.contains("hidden")) return;
   document.getElementById("homeTitle").value = state.homeTitle;
   document.getElementById("homeMessage").value = state.homeMessage;
   
-  document.getElementById("controls").innerHTML = projects.map(p => {
-    const d = getData(p);
-    return `<div class="control-card">
-      <h4>${p.title}</h4>
-      <label>Verdict / tag<input type="text" id="tag-${p.id}" value="${escapeAttr(d.tag)}"></label>
-      <label style="display:block;margin-top:9px">Ansh rating<input type="text" id="rating-${p.id}" value="${escapeAttr(d.rating)}"></label>
-      <label style="display:block;margin-top:9px">Ansh message<textarea id="note-${p.id}" rows="3">${escapeHtml(d.note)}</textarea></label>
-      <label class="watch" style="margin-top:9px"><input id="mine-${p.id}" type="checkbox" ${d.mine ? "checked" : ""}> ❤️ Watch With Ansh</label>
-      <button class="smallbtn" onclick="saveProject(${p.id})">Save this project</button>
-    </div>`;
-  }).join("");
+  const controlsContainer = document.getElementById("controls");
+  controlsContainer.innerHTML = ""; 
+  
+  const firstBatch = projects.slice(0, 10);
+  controlsContainer.innerHTML = firstBatch.map(generateControlCard).join("");
+
+  if (projects.length > 10) {
+    setTimeout(() => {
+      const remainingBatch = projects.slice(10);
+      controlsContainer.innerHTML += remainingBatch.map(generateControlCard).join("");
+    }, 300); 
+  }
 }
+
+function generateControlCard(p) {
+  const d = getData(p);
+  return `<div class="control-card">
+    <h4>${p.title}</h4>
+    <label>Verdict / tag<input type="text" id="tag-${p.id}" value="${escapeAttr(d.tag)}"></label>
+    <label style="display:block;margin-top:9px">Ansh rating<input type="text" id="rating-${p.id}" value="${escapeAttr(d.rating)}"></label>
+    <label style="display:block;margin-top:9px">Ansh message<textarea id="note-${p.id}" rows="3">${escapeHtml(d.note)}</textarea></label>
+    <label class="watch" style="margin-top:9px"><input id="mine-${p.id}" type="checkbox" ${d.mine ? "checked" : ""}> ❤️ Watch With Ansh</label>
+    <button class="smallbtn" onclick="saveProject(${p.id})">Save this project</button>
+  </div>`;
+}
+
 function saveProject(id) {
   state.custom[id] = {
     tag: document.getElementById("tag-" + id).value,
