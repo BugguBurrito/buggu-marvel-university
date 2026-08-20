@@ -55,6 +55,37 @@ header{padding:24px 0;display:flex;align-items:center;justify-content:space-betw
   flex:1;min-width:220px;border:1px solid var(--border);background:rgba(255,255,255,.8);border-radius:999px;padding:11px 15px;color:var(--text)
 }
 .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+
+.project.collectible{padding:0;overflow:hidden;background:rgba(255,255,255,.86)}
+.card-art{height:170px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--border)}
+.card-art:before,.card-art:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.7}
+.card-art:before{width:150px;height:150px;background:rgba(255,255,255,.55);top:-55px;right:-25px}
+.card-art:after{width:120px;height:120px;background:rgba(255,255,255,.42);bottom:-65px;left:-20px}
+.art-glow{position:absolute;width:105px;height:105px;border-radius:50%;background:rgba(255,255,255,.58);box-shadow:0 0 35px rgba(255,255,255,.8)}
+.art-symbol{position:relative;z-index:2;width:92px;height:92px;border-radius:28px;display:grid;place-items:center;font:700 54px 'Playfair Display',serif;color:#66546b;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.8);box-shadow:0 14px 35px rgba(70,55,80,.1);transform:rotate(-3deg);animation:float 4s ease-in-out infinite}
+.art-caption{position:absolute;left:15px;bottom:12px;z-index:3;font-size:10px;font-weight:700;letter-spacing:.8px;color:#5d5362;background:rgba(255,255,255,.68);padding:6px 9px;border-radius:999px}
+.with-ansh{position:absolute;right:15px;top:12px;z-index:4;font-size:10px;font-weight:700;background:rgba(255,255,255,.78);padding:7px 9px;border-radius:999px}
+.art-arc{background:linear-gradient(135deg,#f8dce9,#e5dcf7)}
+.art-hulk{background:linear-gradient(135deg,#dff0df,#dcecf5)}
+.art-widow{background:linear-gradient(135deg,#f3dfec,#e7def7)}
+.art-mjolnir{background:linear-gradient(135deg,#dcecf6,#e9e7f5)}
+.art-shield{background:linear-gradient(135deg,#f8e0d9,#f5d9e7)}
+.art-avengers{background:linear-gradient(135deg,#e8def5,#dcecf6)}
+.art-ship{background:linear-gradient(135deg,#dcefe8,#dcecf6)}
+.art-vision{background:linear-gradient(135deg,#eee1f5,#dff0e9)}
+.art-ant{background:linear-gradient(135deg,#fae2d6,#f5d9e7)}
+.card-body{padding:20px 23px 23px}
+.verdict{height:max-content;display:flex;align-items:center;gap:6px;padding:8px 11px;border-radius:999px;white-space:nowrap;font-size:10px;font-weight:700;letter-spacing:.1px}
+.verdict span{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.65);font-size:11px}
+.verdict.legend{background:#f7e2b9}.verdict.meh{background:#eee7ea}.verdict.mine{background:#f7dce9}.verdict.important{background:#e4def5}.verdict.fun{background:#dcefe8}
+.reveal{margin-top:12px;border:1px solid var(--border);border-radius:15px;background:rgba(255,255,255,.5);overflow:hidden}
+.reveal summary{cursor:pointer;padding:11px 13px;font-size:12px;font-weight:700;list-style:none}
+.reveal summary::-webkit-details-marker{display:none}
+.reveal summary:after{content:"＋";float:right;font-size:15px}.reveal[open] summary:after{content:"−"}
+.reveal .fact{margin:0;border:0;border-radius:0}
+.secret .secret-box{padding:14px;background:linear-gradient(135deg,var(--pink2),var(--lav));font-size:13px;line-height:1.5;color:var(--muted)}
+.ansh-score{margin-top:9px;font-weight:700;font-size:15px}
+
 .project{position:relative;padding:23px;transition:.22s}.project:hover{transform:translateY(-3px)}
 .project.completed{border-color:rgba(189,120,154,.38);background:rgba(255,251,253,.88)}
 .project-top{display:flex;justify-content:space-between;gap:14px}.year{font-size:12px;color:var(--muted)}
@@ -141,7 +172,7 @@ footer{text-align:center;padding:45px 0;color:var(--muted);font-size:13px}
 </section>
 
 <section class="section" id="journey">
-  <div class="section-row"><div><h2 class="section-title">🎬 The Journey</h2><p class="section-sub">Your first little batch. The giant Marvel database comes next.</p></div></div>
+  <div class="section-row"><div><h2 class="section-title">🎬 The Journey</h2><p class="section-sub">Your first little batch. Click the little drawers — some things are meant to be discovered.</p></div></div>
   <div class="toolbar">
     <input id="search" type="text" placeholder="🔎 Search Marvel..." oninput="renderProjects()">
     <button class="pill" onclick="setFilter('all')">All</button>
@@ -207,6 +238,20 @@ function save(){localStorage.setItem("bugguState",JSON.stringify(state));}
 function getData(p){
   return {...p,...(state.custom[p.id]||{})};
 }
+function verdictClass(type){
+  return ({
+    legend:"legend", meh:"meh", mine:"mine", important:"important", fun:"fun"
+  }[type] || "fun");
+}
+function verdictIcon(type){
+  return ({
+    legend:"★", meh:"~", mine:"♥", important:"!", fun:"✦"
+  }[type] || "✦");
+}
+function characterFor(p){
+  const map={1:"arc",2:"hulk",3:"widow",4:"mjolnir",5:"shield",6:"avengers",7:"arc",8:"mjolnir",9:"shield",10:"ship",11:"vision",12:"ant"};
+  return map[p.id]||"star";
+}
 function renderProjects(){
   const q=(document.getElementById("search").value||"").toLowerCase();
   const box=document.getElementById("projects"); box.innerHTML="";
@@ -219,27 +264,51 @@ function renderProjects(){
     return true;
   }).forEach(p=>{
     const card=document.createElement("article");
-    card.className="project "+(state.watched[p.id]?"completed":"");
+    card.className="project collectible "+(state.watched[p.id]?"completed":"");
     card.innerHTML=`
-      <div class="project-top">
-        <div><div class="year">${p.year} • Marvel</div><h3>${p.title}</h3></div>
-        <div class="tag">${p.tag}</div>
+      <div class="card-art art-${characterFor(p)}">
+        <div class="art-glow"></div>
+        <div class="art-symbol">${artSymbol(characterFor(p))}</div>
+        <div class="art-caption">${p.year} • ${p.type==="legend"?"LEGEND":p.type==="meh"?"WE MOVE":"MARVEL"}</div>
+        ${p.mine?'<div class="with-ansh">♥ ANSH WANTS THIS ONE</div>':""}
       </div>
-      <p class="note">${p.note}</p>
-      <div class="fact"><strong>🔎 DID YOU KNOW?</strong>${p.fact}</div>
-      <div class="controls">
-        <label>Your rating<select onchange="rateMovie(${p.id},this.value)">
-          <option value="">Not rated</option>${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${state.ratings[p.id]==n?"selected":""}>${n}/10</option>`).join("")}
-        </select></label>
-        <label>Ansh rating<div style="margin-top:10px;font-weight:700">${p.rating}/10</div></label>
+      <div class="card-body">
+        <div class="project-top">
+          <div><div class="year">${p.year} • Marvel</div><h3>${p.title}</h3></div>
+          <div class="verdict ${verdictClass(p.type)}"><span>${verdictIcon(p.type)}</span>${p.tag.replace(/^[^A-Za-z0-9]+/,"")}</div>
+        </div>
+        <p class="note"><strong>Ansh says:</strong> ${p.note}</p>
+
+        <details class="reveal">
+          <summary>🔎 Discover something</summary>
+          <div class="fact"><strong>FUN FACT</strong>${p.fact}</div>
+        </details>
+
+        <details class="reveal secret">
+          <summary>🥚 There may be something hidden here...</summary>
+          <div class="secret-box">You found the first layer. The real Easter eggs will appear as we build the full universe. 👀</div>
+        </details>
+
+        <div class="controls">
+          <label>Your rating<select onchange="rateMovie(${p.id},this.value)">
+            <option value="">Not rated</option>${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${state.ratings[p.id]==n?"selected":""}>${n}/10</option>`).join("")}
+          </select></label>
+          <label>Ansh rating<div class="ansh-score">${p.rating}/10</div></label>
+        </div>
+        <label class="watch"><input type="checkbox" ${state.watched[p.id]?"checked":""} onchange="toggleWatched(${p.id},this.checked)"> I watched it <span>♥</span></label>
+        ${p.mine?'<div class="mini">♥ This one is specifically on Ansh’s “watch together” list.</div>':""}
       </div>
-      <label class="watch"><input type="checkbox" ${state.watched[p.id]?"checked":""} onchange="toggleWatched(${p.id},this.checked)"> I watched it ❤️</label>
-      ${p.mine?'<div class="mini">❤️ Ansh specifically wants to watch this with you.</div>':""}
     `;
     box.appendChild(card);
   });
   updateStats();
 }
+function artSymbol(kind){
+  return ({
+    arc:"◉",hulk:"◆",widow:"✦",mjolnir:"⌁",shield:"✚",avengers:"A",ship:"✦",vision:"◇",ant:"·",star:"✦"
+  }[kind]||"✦");
+}
+
 function toggleWatched(id,v){state.watched[id]=v;save();renderProjects();renderControls();}
 function rateMovie(id,v){if(v)state.ratings[id]=Number(v);else delete state.ratings[id];save();renderProjects();renderControls();}
 function updateStats(){
