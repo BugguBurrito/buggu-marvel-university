@@ -4,416 +4,546 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Buggu Marvel University ❤️</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
-:root{
-  --pink:#f5d9e7;--pink2:#fff0f6;--lav:#e7def7;--blue:#dcecf6;
-  --mint:#dcefe8;--peach:#fae2d6;--cream:#fffaf6;--text:#403747;
-  --muted:#807487;--accent:#bd789a;--border:rgba(80,60,85,.12);--white:#fff;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap');
+
+:root {
+  --pink: #f5d9e7; --pink2: #fff0f6; --lav: #e7def7; --blue: #dcecf6;
+  --mint: #dcefe8; --peach: #fae2d6; --cream: #fffaf6; --text: #3c3245;
+  --muted: #7e7188; --accent: #bd789a; --accent-dark: #984e73;
+  --border: rgba(80, 60, 85, 0.15); --white: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --shadow: 0 14px 35px rgba(70, 55, 80, 0.07);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
   background:
-    radial-gradient(circle at 8% 10%,#f8dce9 0,transparent 24%),
-    radial-gradient(circle at 92% 15%,#ddd7f4 0,transparent 24%),
-    radial-gradient(circle at 50% 100%,#dcefe8 0,transparent 30%),var(--cream);
+    radial-gradient(circle at 10% 12%, #f8dce9 0, transparent 28%),
+    radial-gradient(circle at 90% 18%, #ddd7f4 0, transparent 28%),
+    radial-gradient(circle at 50% 100%, #dcefe8 0, transparent 35%),
+    var(--cream);
+  overflow-x: hidden;
 }
-button,input,select,textarea{font:inherit} button{cursor:pointer}
-button:focus,input:focus,select:focus,textarea:focus{outline:3px solid rgba(189,120,154,.25);outline-offset:2px}
-.container{width:min(1120px,92%);margin:auto}
-header{padding:24px 0;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.logo{font:700 21px 'Playfair Display',serif}.logo span{color:var(--accent)}
-.nav{display:flex;gap:8px;flex-wrap:wrap}.nav button,.pill{
-  border:1px solid var(--border);background:rgba(255,255,255,.72);padding:9px 14px;
-  border-radius:999px;color:var(--text)
-}
-.hero{
-  position:relative;overflow:hidden;border:1px solid var(--border);border-radius:34px;
-  padding:52px 44px;background:linear-gradient(135deg,rgba(246,220,232,.88),rgba(231,222,246,.84),rgba(220,239,232,.78));
-}
-.hero h1{font:700 clamp(42px,7vw,76px)/.95 'Playfair Display',serif;max-width:780px}
-.eyebrow,.tag,.badge{display:inline-block;border-radius:999px;font-size:11px;font-weight:700}
-.eyebrow{padding:7px 13px;background:rgba(255,255,255,.72);letter-spacing:.4px;margin-bottom:18px}
-.hero p{max-width:680px;margin-top:20px;color:var(--muted);font-size:17px;line-height:1.7}
-.hero-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.primary,.secondary{border:0;border-radius:999px;padding:13px 20px;font-weight:700}
-.primary{background:var(--accent);color:white}.secondary{background:rgba(255,255,255,.75);color:var(--text);border:1px solid var(--border)}
-.hero-deco{position:absolute;right:34px;bottom:18px;font-size:54px;opacity:.65;animation:float 4s ease-in-out infinite}.hero-deco.mjolnir{width:72px;height:92px}.hero-deco.mjolnir svg{width:100%;height:100%;filter:drop-shadow(0 7px 8px rgba(70,55,80,.12))}
-.hero-deco.two{right:130px;top:22px;font-size:32px;animation-delay:-1.4s}
-@keyframes float{50%{transform:translateY(-9px) rotate(3deg)}}
-.progress-box{margin-top:34px}.progress-top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}
-.progress{height:12px;background:rgba(255,255,255,.65);border-radius:99px;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--accent);transition:.45s}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0 40px}
-.stat,.project,.achievement,.panel,.fact,.control-card{
-  background:rgba(255,255,255,.78);border:1px solid var(--border);border-radius:23px
-}
-.stat{padding:19px}.stat-label{font-size:13px;color:var(--muted)}.stat-number{font-size:28px;font-weight:700;margin-top:4px}
-.section{margin:45px 0}.section-title{font:700 31px 'Playfair Display',serif}.section-sub{color:var(--muted);margin:6px 0 20px}
-.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}.toolbar input{
-  flex:1;min-width:220px;border:1px solid var(--border);background:rgba(255,255,255,.8);border-radius:999px;padding:11px 15px;color:var(--text)
-}
-.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 
-.project.collectible{padding:0;overflow:hidden;background:rgba(255,255,255,.86)}
-.card-art{height:170px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--border)}
-.card-art:before,.card-art:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.7}
-.card-art:before{width:150px;height:150px;background:rgba(255,255,255,.55);top:-55px;right:-25px}
-.card-art:after{width:120px;height:120px;background:rgba(255,255,255,.42);bottom:-65px;left:-20px}
-.art-glow{position:absolute;width:105px;height:105px;border-radius:50%;background:rgba(255,255,255,.58);box-shadow:0 0 35px rgba(255,255,255,.8)}
-.art-symbol{position:relative;z-index:2;width:92px;height:92px;border-radius:28px;display:grid;place-items:center;font:700 54px 'Playfair Display',serif;color:#66546b;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.8);box-shadow:0 14px 35px rgba(70,55,80,.1);transform:rotate(-3deg);animation:float 4s ease-in-out infinite}
-.art-caption{position:absolute;left:15px;bottom:12px;z-index:3;font-size:10px;font-weight:700;letter-spacing:.8px;color:#5d5362;background:rgba(255,255,255,.68);padding:6px 9px;border-radius:999px}
-.with-ansh{position:absolute;right:15px;top:12px;z-index:4;font-size:10px;font-weight:700;background:rgba(255,255,255,.78);padding:7px 9px;border-radius:999px}
-.art-arc{background:linear-gradient(135deg,#f8dce9,#e5dcf7)}
-.art-hulk{background:linear-gradient(135deg,#dff0df,#dcecf5)}
-.art-widow{background:linear-gradient(135deg,#f3dfec,#e7def7)}
-.art-mjolnir{background:linear-gradient(135deg,#dcecf6,#e9e7f5)}
-.art-shield{background:linear-gradient(135deg,#f8e0d9,#f5d9e7)}
-.art-avengers{background:linear-gradient(135deg,#e8def5,#dcecf6)}
-.art-ship{background:linear-gradient(135deg,#dcefe8,#dcecf6)}
-.art-vision{background:linear-gradient(135deg,#eee1f5,#dff0e9)}
-.art-ant{background:linear-gradient(135deg,#fae2d6,#f5d9e7)}
-.card-body{padding:20px 23px 23px}
-.verdict{height:max-content;display:flex;align-items:center;gap:6px;padding:8px 11px;border-radius:999px;white-space:nowrap;font-size:10px;font-weight:700;letter-spacing:.1px}
-.verdict span{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.65);font-size:11px}
-.verdict.legend{background:#f7e2b9}.verdict.meh{background:#eee7ea}.verdict.mine{background:#f7dce9}.verdict.important{background:#e4def5}.verdict.fun{background:#dcefe8}
+button, input, select, textarea { font: inherit; cursor: pointer; border: none; outline: none; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgba(189, 120, 154, 0.4); outline-offset: 2px; }
+input[type=text], input[type=password], select, textarea { cursor: text; }
+
+.container { width: min(1180px, 92%); margin: auto; }
+
+/* HEADER & NAVBAR */
+header { padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 15px; position: relative; z-index: 10; }
+.logo { font: 900 22px 'Playfair Display', serif; }
+.logo span { color: var(--accent); }
+.nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.nav button { border: 1px solid var(--border); background: rgba(255, 255, 255, 0.78); padding: 9px 16px; border-radius: 999px; color: var(--text); font-weight: 500; font-size: 13.5px; transition: all 0.2s ease; backdrop-filter: blur(8px); }
+.nav button:hover { background: var(--white); border-color: var(--accent); transform: translateY(-1px); }
+
+/* HERO SECTION */
+.hero {
+  position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 36px; padding: 56px 46px;
+  background: linear-gradient(135deg, rgba(246, 220, 232, 0.9), rgba(231, 222, 246, 0.85), rgba(220, 239, 232, 0.8)); box-shadow: var(--shadow);
+}
+.hero h1 { font: 900 clamp(38px, 6.5vw, 70px)/1.02 'Playfair Display', serif; max-width: 780px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; font-size: 11px; font-weight: 700; padding: 7px 14px; background: rgba(255, 255, 255, 0.85); letter-spacing: 0.5px; margin-bottom: 18px; }
+.hero p { max-width: 660px; margin-top: 18px; color: var(--muted); font-size: 16.5px; line-height: 1.65; }
+
+/* FLOATING PETS & MARVEL DECORATIONS */
+.hero-deco { position: absolute; opacity: 0.8; pointer-events: none; }
+.hero-deco.mjolnir { right: 35px; bottom: 25px; width: 75px; height: 95px; animation: float 4.5s ease-in-out infinite; }
+.hero-deco.star-angel { right: 40px; top: 25px; font-size: 26px; animation: glow 3s ease-in-out infinite alternate; filter: drop-shadow(0 0 10px #ffe599); }
+.hero-deco.cat-white { right: 130px; top: 25px; font-size: 34px; animation: float 4s ease-in-out infinite -1s; }
+.hero-deco.cat-grey { right: 190px; top: 65px; font-size: 30px; animation: float 5s ease-in-out infinite -2s; }
+.hero-deco.pug { right: 85px; bottom: 120px; font-size: 32px; animation: float 4.2s ease-in-out infinite -0.5s; }
+
+@keyframes float { 50% { transform: translateY(-10px) rotate(3deg); } }
+@keyframes glow { from { opacity: 0.4; transform: scale(0.9); } to { opacity: 1; transform: scale(1.15); } }
+
+/* STICKY NAV WRAPPER */
+.universe-nav-wrapper {
+  position: sticky; top: 0; z-index: 50; background: rgba(255, 250, 246, 0.85); backdrop-filter: blur(12px);
+  padding: 15px 0; margin: 30px 0 20px; border-bottom: 1px solid rgba(80, 60, 85, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+.universe-tabs { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 5px; width: min(1180px, 92%); margin: auto; scrollbar-width: none; }
+.tab-btn { display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); border-radius: 999px; padding: 10px 20px; font-weight: 700; font-size: 13px; color: var(--text); white-space: nowrap; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px;}
+.tab-btn:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(189, 120, 154, 0.15); }
+.tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+.tab-icon { width: 18px; height: 18px; opacity: 0.7; }
+.tab-btn.active .tab-icon { opacity: 1; }
+
+/* PROGRESS & STATS */
+.progress-box { margin-top: 28px; max-width: 660px;}
+.progress-top { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; margin-bottom: 8px; }
+.progress { height: 12px; background: rgba(255, 255, 255, 0.65); border-radius: 99px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), #e39bbd); transition: width 0.5s ease; }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0 35px; }
+.stat, .project, .achievement, .panel, .control-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; box-shadow: var(--shadow); }
+.stat { padding: 20px; }
+.stat-label { font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.stat-number { font-size: 28px; font-weight: 700; margin-top: 4px; color: var(--text); }
+
+/* MOVIE CARDS */
+.section { margin: 48px 0; }
+.section-title { font: 800 30px 'Playfair Display', serif; }
+.section-sub { color: var(--muted); font-size: 14.5px; margin-top: 4px; margin-bottom: 20px;}
+.projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.project.collectible { padding: 0; overflow: hidden; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.project.collectible:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(70, 55, 80, 0.12); }
+.project.completed { border-color: rgba(189, 120, 154, 0.4); background: rgba(255, 252, 254, 0.95); }
+
+.card-art { height: 160px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; border-bottom: 1px solid var(--border); }
+.card-art.mcu { background: linear-gradient(135deg, #f8dce9, #e5dcf7); }
+.card-art.sony { background: linear-gradient(135deg, #ffd8d8, #dcecf6); }
+.card-art.fox { background: linear-gradient(135deg, #faeed6, #dcefe8); }
+.art-symbol { position: relative; z-index: 2; width: 84px; height: 84px; border-radius: 24px; display: grid; place-items: center; font: 700 44px 'Playfair Display', serif; color: #5c4d62; background: rgba(255, 255, 255, 0.78); border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 10px 25px rgba(70, 55, 80, 0.08); animation: float 4.5s ease-in-out infinite; }
+.art-caption { position: absolute; left: 14px; bottom: 12px; z-index: 3; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; color: #584c5c; background: rgba(255, 255, 255, 0.85); padding: 5px 10px; border-radius: 999px; }
+
+.card-body { padding: 22px; }
+.project-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.year-badge { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+.project h3 { font: 700 23px 'Playfair Display', serif; margin-top: 2px; color: var(--text); }
+.verdict { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 999px; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
+.verdict.legend { background: #fae8c3; color: #735118; }
+.verdict.meh { background: #eee7ea; color: #6e6467; }
+.verdict.mine { background: #fce1ee; color: #883f65; }
+.verdict.important { background: #e7e0f8; color: #53457a; }
+.verdict.fun { background: #ddf2ea; color: #2e6955; }
+
+.note { color: var(--text); line-height: 1.55; margin: 14px 0 10px; font-size: 14px; }
+.note strong { color: var(--accent-dark); }
+.controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+label { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+select, input[type=text], input[type=password], textarea { width: 100%; border: 1px solid var(--border); background: #fff; border-radius: 12px; padding: 9px 12px; color: var(--text); margin-top: 4px; }
+.ansh-score { margin-top: 8px; font-weight: 700; font-size: 15px; color: var(--accent-dark); }
+
+.watch-row { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border); }
+.watch { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+.watch input { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
+.party-btn { background: var(--accent); color: white; padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 700; border: none; transition: 0.2s;}
+.party-btn:hover { background: var(--accent-dark); transform: translateY(-2px);}
+
+/* REVEAL/ACCORDION */
 .reveal{margin-top:12px;border:1px solid var(--border);border-radius:15px;background:rgba(255,255,255,.5);overflow:hidden}
-.reveal summary{cursor:pointer;padding:11px 13px;font-size:12px;font-weight:700;list-style:none}
+.reveal summary{cursor:pointer;padding:11px 13px;font-size:12px;font-weight:700;list-style:none; display:flex; justify-content:space-between}
 .reveal summary::-webkit-details-marker{display:none}
-.reveal summary:after{content:"＋";float:right;font-size:15px}.reveal[open] summary:after{content:"−"}
-.reveal .fact{margin:0;border:0;border-radius:0}
-.secret .secret-box{padding:14px;background:linear-gradient(135deg,var(--pink2),var(--lav));font-size:13px;line-height:1.5;color:var(--muted)}
-.ansh-score{margin-top:9px;font-weight:700;font-size:15px}
+.reveal summary:after{content:"＋"; font-size:15px}
+.reveal[open] summary:after{content:"−"}
+.fact{padding:14px;background:linear-gradient(135deg,var(--blue),var(--lav));line-height:1.55; font-size: 13px;}
 
-.project{position:relative;padding:23px;transition:.22s}.project:hover{transform:translateY(-3px)}
-.project.completed{border-color:rgba(189,120,154,.38);background:rgba(255,251,253,.88)}
-.project-top{display:flex;justify-content:space-between;gap:14px}.year{font-size:12px;color:var(--muted)}
-.project h3{font:700 25px 'Playfair Display',serif;margin-top:4px}.tag{padding:7px 10px;background:var(--pink2);white-space:nowrap}
-.note{color:var(--muted);line-height:1.55;margin:13px 0}.fact{padding:14px;background:linear-gradient(135deg,var(--blue),var(--lav));line-height:1.55}
-.fact strong{display:block;font-size:11px;margin-bottom:4px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}
-label{font-size:12px;color:var(--muted)}select,textarea,input[type=text]{
-  width:100%;border:1px solid var(--border);background:#fff;border-radius:12px;padding:9px;color:var(--text);margin-top:5px
-}
-.watch{display:flex;align-items:center;gap:8px;margin-top:13px;color:var(--text);font-size:14px}.watch input{width:18px;height:18px;accent-color:var(--accent)}
-.mini{font-size:11px;color:var(--muted);margin-top:9px}
-.section-row{display:flex;justify-content:space-between;gap:15px;align-items:end}.section-row button{border:0;background:var(--pink2);padding:9px 13px;border-radius:999px;color:var(--text)}
-.achievements{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.achievement{padding:18px}.achievement.locked{opacity:.45}.achievement-icon{font-size:27px}.achievement h4{margin-top:7px}.achievement p{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.45}
-.quote{background:linear-gradient(135deg,var(--peach),var(--pink));border-radius:27px;padding:28px;line-height:1.7}.quote strong{display:block;margin-bottom:7px}
-.panel{padding:23px;margin-top:16px}.panel h3{font:700 24px 'Playfair Display',serif;margin-bottom:12px}
-.control-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.control-card{padding:18px}
-.control-card h4{margin-bottom:10px}.smallbtn{border:1px solid var(--border);background:#fff;padding:9px 12px;border-radius:11px;color:var(--text);margin-top:9px}
-.danger{background:#fff0f3;border-color:#efc4d2}
-.modal{position:fixed;inset:0;background:rgba(54,42,57,.42);display:none;align-items:center;justify-content:center;padding:20px;z-index:20}
-.modal.show{display:flex}.modal-box{width:min(650px,100%);max-height:90vh;overflow:auto;background:var(--cream);border:1px solid var(--border);border-radius:28px;padding:24px}
-.modal-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.close{border:0;background:var(--pink2);border-radius:50%;width:38px;height:38px}
-.hidden{display:none}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:#4d4050;color:white;padding:11px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:30}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-footer{text-align:center;padding:45px 0;color:var(--muted);font-size:13px}
-@media(max-width:760px){
-  .nav{display:none}.hero{padding:34px 23px}.hero-deco{right:15px;font-size:38px}.hero-deco.two{right:75px}
-  .stats{grid-template-columns:repeat(2,1fr)}.projects,.achievements,.control-grid{grid-template-columns:1fr}
-  .controls{grid-template-columns:1fr}.project-top{align-items:start}.tag{white-space:normal}
+/* ACHIEVEMENTS */
+.achievements { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.achievement { padding: 20px; transition: 0.2s; }
+.achievement.locked { opacity: 0.45; filter: grayscale(0.8); }
+.achievement-icon { font-size: 30px; }
+.achievement h4 { margin-top: 8px; font-size: 16px; }
+.achievement p { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+/* ABOUT & QUOTE */
+.quote { background: linear-gradient(135deg, var(--peach), var(--pink)); border-radius: 28px; padding: 32px; line-height: 1.7; border: 1px solid var(--border); }
+.quote strong { display: block; margin-bottom: 8px; font-size: 18px; }
+
+/* MODALS */
+.modal { position: fixed; inset: 0; background: rgba(48, 36, 52, 0.5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 100; backdrop-filter: blur(4px); }
+.modal.show { display: flex; }
+.modal-box { width: min(720px, 100%); max-height: 90vh; overflow-y: auto; background: var(--cream); border: 1px solid var(--border); border-radius: 30px; padding: 28px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); }
+.modal-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.close { background: var(--pink2); border-radius: 50%; width: 36px; height: 36px; font-weight: 700; font-size: 16px; }
+.smallbtn { border: 1px solid var(--border); background: #fff; padding: 9px 12px; border-radius: 11px; color: var(--text); margin-top: 9px; font-weight: 600;}
+.danger { background: #fff0f3; border-color: #efc4d2; color: #b83354;}
+.hidden { display: none !important; }
+
+/* EASTER EGG RARE VISITOR */
+.rare-visitor { position: fixed; bottom: 20px; left: -50px; font-size: 24px; cursor: pointer; z-index: 200; transition: transform 0.3s ease; animation: scurry 8s linear forwards;}
+.rare-visitor:hover { transform: scale(1.5); }
+.rare-visitor.discovered { animation: none; transform: scale(3); opacity: 0; transition: all 0.5s ease; pointer-events: none;}
+@keyframes scurry { 0% { left: -50px; } 100% { left: 110vw; } }
+
+/* TOAST */
+.toast { position: fixed; left: 50%; bottom: 25px; transform: translateX(-50%) translateY(20px); background: #3e3344; color: white; padding: 12px 22px; border-radius: 999px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: 0.25s ease; z-index: 120; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13.5px; }
+
+@media (max-width: 820px) {
+  .hero { padding: 36px 24px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .projects, .achievements { grid-template-columns: 1fr; }
+  .hero-deco.cat-grey, .hero-deco.pug { display: none; }
 }
 </style>
 </head>
 <body>
+
 <div class="container">
-<header>
-  <div class="logo">Buggu <span>Marvel University</span> ❤️</div>
-  <nav class="nav">
-    <button onclick="go('journey')">Journey</button>
-    <button onclick="go('achievements')">Achievements</button>
-    <button onclick="go('about')">About</button>
-    <button onclick="openControl()">🔐 Ansh</button>
-  </nav>
-</header>
+  <header>
+    <div class="logo">Buggu <span>Marvel University</span> ❤️</div>
+    <nav class="nav">
+      <button onclick="go('journey')">🎬 Journey</button>
+      <button onclick="go('achievements')">🏆 Achievements</button>
+      <button onclick="go('about')">💌 Message</button>
+      <button onclick="openControl()">🔐 Ansh</button>
+    </nav>
+  </header>
 
-<section class="hero">
-  <div class="hero-deco mjolnir" aria-label="Mjolnir">
-  <svg viewBox="0 0 120 150" role="img">
-    <defs>
-      <linearGradient id="mjMetal" x1="0" x2="1">
-        <stop offset="0" stop-color="#b9c6d3"/>
-        <stop offset=".45" stop-color="#f5f8fb"/>
-        <stop offset="1" stop-color="#8999aa"/>
-      </linearGradient>
-    </defs>
-    <g transform="rotate(-12 60 75)">
-      <rect x="53" y="72" width="14" height="68" rx="7" fill="#8b5b3e"/>
-      <rect x="48" y="70" width="24" height="10" rx="5" fill="#6e452f"/>
-      <path d="M25 30 Q25 20 35 20 H85 Q95 20 95 30 V65 Q95 78 82 82 H38 Q25 78 25 65Z"
-            fill="url(#mjMetal)" stroke="#6f7f90" stroke-width="3"/>
-      <path d="M30 38 H90 M30 51 H90 M42 21 V80 M78 21 V80"
-            stroke="#dce5ed" stroke-width="3" opacity=".65"/>
-      <path d="M40 27 L48 20 M72 80 L82 72" stroke="#ffffff" stroke-width="3" opacity=".7"/>
-    </g>
-  </svg>
-</div><div class="hero-deco two">🐈</div>
-  <div class="eyebrow">💌 MADE BY ANSH FOR MIYA</div>
-  <h1>Welcome to your Marvel universe.</h1>
-  <p>A completely unnecessary amount of Marvel homework, lovingly assigned by your boyfriend. Some you'll love, some you'll hate, and some we're absolutely watching together.</p>
-  <div class="hero-buttons">
-    <button class="primary" onclick="go('journey')">🎬 Start the Journey</button>
-    <button class="secondary" onclick="randomMovie()">🎲 Pick Something For Me</button>
+  <section class="hero">
+    <div class="hero-deco star-angel" title="Blonde Guardian Star">✨</div>
+    <div class="hero-deco cat-white" title="Energetic White Cat">🐱</div>
+    <div class="hero-deco cat-grey" title="Calm Grey Cat">🩶</div>
+    <div class="hero-deco pug" title="Minion the Pug">🐶</div>
+    <div class="hero-deco mjolnir" aria-label="Mjolnir">
+      <svg viewBox="0 0 120 150" role="img">
+        <defs><linearGradient id="mjMetal" x1="0" x2="1"><stop offset="0" stop-color="#b9c6d3"/><stop offset=".45" stop-color="#f5f8fb"/><stop offset="1" stop-color="#8999aa"/></linearGradient></defs>
+        <g transform="rotate(-12 60 75)">
+          <rect x="53" y="72" width="14" height="68" rx="7" fill="#8b5b3e"/>
+          <rect x="48" y="70" width="24" height="10" rx="5" fill="#6e452f"/>
+          <path d="M25 30 Q25 20 35 20 H85 Q95 20 95 30 V65 Q95 78 82 82 H38 Q25 78 25 65Z" fill="url(#mjMetal)" stroke="#6f7f90" stroke-width="3"/>
+          <path d="M30 38 H90 M30 51 H90 M42 21 V80 M78 21 V80" stroke="#dce5ed" stroke-width="3" opacity=".65"/>
+          <path d="M40 27 L48 20 M72 80 L82 72" stroke="#ffffff" stroke-width="3" opacity=".7"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="eyebrow">💌 EXCLUSIVELY CURATED FOR MIYA</div>
+    <h1>Welcome to your Marvel universe.</h1>
+    <p>A completely unnecessary amount of Marvel homework, lovingly assigned by your boyfriend. Some you'll love, some you'll roast, and some we're absolutely watching together.</p>
+    
+    <div class="progress-box">
+      <div class="progress-top">
+        <span>Completion Progress</span>
+        <strong id="progressText">0 / 12</strong>
+      </div>
+      <div class="progress"><div class="progress-fill" id="progressBar"></div></div>
+    </div>
+  </section>
+
+  <!-- THE STICKY UNIVERSE TABS -->
+  <div class="universe-nav-wrapper" id="universeNav">
+    <div class="universe-tabs">
+      <button class="tab-btn active" onclick="setUniverse('all', this)">
+        <svg viewBox="0 0 24 24" class="tab-icon"><path fill="currentColor" d="M12 2L2 12l3 3 7-7 7 7 3-3L12 2zm0 14.5c-2.5 0-4.5 2-4.5 4.5h9c0-2.5-2-4.5-4.5-4.5z"/></svg>
+        All Projects
+      </button>
+      <button class="tab-btn" onclick="setUniverse('mcu', this)">
+        <svg viewBox="0 0 24 24" class="tab-icon"><path fill="currentColor" d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 2.5l6 3.3v1.9l-6-3.3-6 3.3V7.8l6-3.3zm0 14l-7-3.9v-5.5l7 3.9 7-3.9v5.5l-7 3.9z"/></svg>
+        The Infinity Saga
+      </button>
+      <button class="tab-btn" onclick="setUniverse('sony', this)">
+        <svg viewBox="0 0 24 24" class="tab-icon"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm-2-12v8l6-4-6-4z"/></svg>
+        Spider-Verse
+      </button>
+      <button class="tab-btn" onclick="setUniverse('fox', this)">
+        <svg viewBox="0 0 24 24" class="tab-icon"><path fill="currentColor" d="M21 4H3v16h18V4zm-2 14H5V6h14v12zm-9.5-3.5h5V12h-5v2.5zm0-4h5V9h-5v1.5z"/></svg>
+        Mutant Saga
+      </button>
+    </div>
   </div>
-  <div class="progress-box">
-    <div class="progress-top"><span>Your Marvel Journey</span><strong id="progressText">0 / 12</strong></div>
-    <div class="progress"><div class="progress-fill" id="progressBar"></div></div>
-  </div>
-</section>
 
-<section class="stats">
-  <div class="stat"><div class="stat-label">Watched</div><div class="stat-number" id="watchedCount">0</div></div>
-  <div class="stat"><div class="stat-label">Completion</div><div class="stat-number" id="completion">0%</div></div>
-  <div class="stat"><div class="stat-label">Average Rating</div><div class="stat-number" id="averageRating">—</div></div>
-  <div class="stat"><div class="stat-label">Achievements</div><div class="stat-number" id="achievementCount">0 / 7</div></div>
-</section>
+  <section class="stats">
+    <div class="stat"><div class="stat-label">Watched</div><div class="stat-number" id="watchedCount">0</div></div>
+    <div class="stat"><div class="stat-label">Completion</div><div class="stat-number" id="completion">0%</div></div>
+    <div class="stat"><div class="stat-label">Miya's Avg Rating</div><div class="stat-number" id="averageRating">—</div></div>
+    <div class="stat"><div class="stat-label">Secrets Found</div><div class="stat-number" id="secretsCount">0</div></div>
+  </section>
 
-<section class="section" id="journey">
-  <div class="section-row"><div><h2 class="section-title">🎬 The Journey</h2><p class="section-sub">Your first little batch. Click the little drawers — some things are meant to be discovered.</p></div></div>
-  <div class="toolbar">
-    <input id="search" type="text" placeholder="🔎 Search Marvel..." oninput="renderProjects()">
-    <button class="pill" onclick="setFilter('all')">All</button>
-    <button class="pill" onclick="setFilter('unwatched')">Unwatched</button>
-    <button class="pill" onclick="setFilter('mine')">❤️ With Ansh</button>
-    <button class="pill" onclick="setFilter('legend')">🐐 Legends</button>
-  </div>
-  <div class="projects" id="projects"></div>
-</section>
+  <section class="section" id="journey">
+    <h2 class="section-title">🎬 The Journey</h2>
+    <p class="section-sub">Your first batch. Click the little drawers — some things are meant to be discovered.</p>
+    <div class="projects" id="projects"></div>
+  </section>
 
-<section class="section" id="achievements">
-  <h2 class="section-title">🏆 Marvel Achievements</h2>
-  <p class="section-sub">Because apparently watching movies wasn't enough.</p>
-  <div class="achievements" id="achievementList"></div>
-</section>
+  <section class="section" id="achievements">
+    <h2 class="section-title">🏆 Marvel Achievements</h2>
+    <p class="section-sub">Badges earned through courage, snacks, and surviving superhero drama.</p>
+    <div class="achievements" id="achievementList"></div>
+  </section>
 
-<section class="section" id="about">
-  <div class="quote">
-    <strong id="homeMessageTitle">💌 A message from Ansh</strong>
-    <div id="homeMessageText"></div>
-  </div>
-</section>
-<footer>Made with questionable amounts of Marvel knowledge by Ansh ❤️</footer>
+  <section class="section" id="about">
+    <div class="control-card quote">
+      <strong id="homeMessageTitle">💌 A message from Ansh</strong>
+      <div id="homeMessageText"></div>
+    </div>
+  </section>
+
+  <footer>Made with questionable amounts of Marvel obsession by Ansh for Miya ❤️</footer>
 </div>
 
+<!-- WATCH WITH ANSH MODAL -->
+<div class="modal" id="watchModal">
+  <div class="modal-box" style="width: min(500px, 100%); text-align: center;">
+    <div class="modal-top">
+      <h2>❤️ Movie Night</h2>
+      <button class="close" onclick="closeWatchModal()">✕</button>
+    </div>
+    <h3 id="watchMovieTitle" style="font-family: 'Playfair Display', serif; font-size: 24px; margin: 15px 0;"></h3>
+    <p id="watchMovieNote" style="color: var(--muted); line-height: 1.6; margin-bottom: 25px;"></p>
+    <div style="display: flex; gap: 10px; justify-content: center;">
+      <button class="smallbtn" style="padding: 12px 20px;" onclick="toast('Waiting for real Discord/Teleparty links in Phase 2!')">💬 Message Ansh</button>
+      <button class="party-btn" style="padding: 12px 20px;" onclick="closeWatchModal()">🎬 I'm ready</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTROL ROOM MODAL -->
 <div class="modal" id="modal">
   <div class="modal-box">
-    <div class="modal-top"><h2 class="section-title">🔐 Ansh Control Room</h2><button class="close" onclick="closeModal()">✕</button></div>
+    <div class="modal-top">
+      <h2>🔐 Ansh Control Room</h2>
+      <button class="close" onclick="closeModal()">✕</button>
+    </div>
     <div id="loginBox">
-      <p class="section-sub">This is just a hidden editing area for you. It is not a secure password system.</p>
-      <label>Enter your PIN<input id="pin" type="password" inputmode="numeric" placeholder="Try 1234"></label>
-      <button class="primary" style="margin-top:12px" onclick="login()">Enter</button>
+      <p class="section-sub">This is a hidden editing area for you to manage the curriculum.</p>
+      <label style="margin-top:12px;display:block">Enter PIN:
+        <input id="pin" type="password" placeholder="Try 1234">
+      </label>
+      <button class="party-btn" style="margin-top:14px;" onclick="login()">Enter Dashboard</button>
     </div>
     <div id="controlBox" class="hidden">
-      <p class="section-sub">Change your verdicts, ratings, notes and “watch with Ansh” choices without editing the website code.</p>
       <div class="control-card" style="margin-bottom:15px">
-        <h4>💌 Homepage Message</h4>
-        <label>Heading<input type="text" id="homeTitle" placeholder="A message from Ansh"></label>
-        <label style="display:block;margin-top:9px">Message<textarea id="homeMessage" rows="6" placeholder="Write whatever you want Miya to see..."></textarea></label>
-        <button class="smallbtn" onclick="saveHomeMessage()">Save Homepage Message</button>
-        <button class="smallbtn danger" onclick="resetHomeMessage()">Reset to original</button>
+        <h4>💌 Homepage Love Letter</h4>
+        <label>Heading<input type="text" id="homeTitle"></label>
+        <label style="display:block;margin-top:9px">Message<textarea id="homeMessage" rows="5"></textarea></label>
+        <button class="smallbtn" onclick="saveHomeMessage()">Save Letter</button>
       </div>
-      <div id="controls"></div>
+      <div id="controls" style="display: grid; gap: 15px;"></div>
     </div>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-const DEFAULT_PIN="1234";
-let filter="all";
-const projects=[
-{id:1,title:"Iron Man",year:2008,tag:"🐐 ONE OF THE LEGENDS",type:"legend",mine:true,rating:9.5,note:"This is where everything begins. I REALLY want you to tell me what you think about Tony.",fact:"Robert Downey Jr. became one of the most important casting choices in the MCU's history."},
-{id:2,title:"The Incredible Hulk",year:2008,tag:"😐 MEH… BUT WE MOVE",type:"meh",mine:false,rating:5.5,note:"Not my favourite, but we're committed to the mission.",fact:"Edward Norton played Bruce Banner before Mark Ruffalo eventually took over the role."},
-{id:3,title:"Iron Man 2",year:2010,tag:"❤️ WATCH WITH ME",type:"mine",mine:true,rating:7,note:"There are things in here you'll appreciate later. Trust me.",fact:"Iron Man 2 helped introduce Black Widow and expanded the connections leading toward The Avengers."},
-{id:4,title:"Thor",year:2011,tag:"👀 PAY ATTENTION",type:"important",mine:false,rating:7.5,note:"Meet someone who becomes VERY important.",fact:"Kenneth Branagh directed Thor and brought a Shakespearean sensibility to Asgard."},
-{id:5,title:"Captain America: The First Avenger",year:2011,tag:"💖 PLEASE WATCH FOR ME",type:"mine",mine:true,rating:8.5,note:"This one has a special place in my Marvel brain.",fact:"Chris Evans initially hesitated to accept the role of Captain America."},
-{id:6,title:"The Avengers",year:2012,tag:"🔥 YOU MADE IT",type:"legend",mine:true,rating:9,note:"Okay. NOW it starts getting serious.",fact:"The Avengers became the first Marvel Studios movie to cross $1 billion worldwide."},
-{id:7,title:"Iron Man 3",year:2013,tag:"😂 JUST WATCH IT",type:"fun",mine:false,rating:7,note:"Don't Google anything beforehand.",fact:"Iron Man 3 was the first Marvel Studios film released after The Avengers."},
-{id:8,title:"Thor: The Dark World",year:2013,tag:"💀 GOOD LUCK",type:"meh",mine:false,rating:5,note:"We have to suffer together.",fact:"Much of the movie's production took place in and around London."},
-{id:9,title:"Captain America: The Winter Soldier",year:2014,tag:"🐐 ABSOLUTE LEGEND",type:"legend",mine:true,rating:9.5,note:"One of the ones I am MOST excited for you to see.",fact:"The film was deliberately shaped like a political conspiracy thriller."},
-{id:10,title:"Guardians of the Galaxy",year:2014,tag:"❤️ YOU NEED TO SEE THIS",type:"mine",mine:true,rating:9,note:"Please report your favourite Guardian immediately.",fact:"Before the movie, many audiences knew very little about the Guardians compared with Marvel's bigger heroes."},
-{id:11,title:"Avengers: Age of Ultron",year:2015,tag:"👀 PAY ATTENTION",type:"important",mine:false,rating:7.5,note:"Things are about to get MUCH bigger.",fact:"The film introduced several characters who became major parts of the MCU."},
-{id:12,title:"Ant-Man",year:2015,tag:"🐜 FUN ONE",type:"fun",mine:false,rating:7.5,note:"Tiny man. Big responsibilities.",fact:"Ant-Man had been in development at Marvel for many years before finally reaching the screen."}
-];
-const DEFAULT_HOME_TITLE="💌 A message from Ansh";
-const DEFAULT_HOME_MESSAGE="I made this because I want you to experience all the Marvel things I've spent way too much of my life obsessing over.\n\nSome are here because they're genuinely amazing. Some are here because they're important. And some are here because I specifically want to watch them with you.\n\nGood luck. ❤️";
-let state=JSON.parse(localStorage.getItem("bugguState")||"null")||{watched:{},ratings:{},custom:{},homeTitle:DEFAULT_HOME_TITLE,homeMessage:DEFAULT_HOME_MESSAGE};
-state.homeTitle=state.homeTitle||DEFAULT_HOME_TITLE;
-state.homeMessage=state.homeMessage||DEFAULT_HOME_MESSAGE;
+const DEFAULT_PIN = "1234";
+let currentUniverse = "all";
 
-function save(){localStorage.setItem("bugguState",JSON.stringify(state));}
-function renderHomeMessage(){
-  const title=document.getElementById("homeMessageTitle");
-  const text=document.getElementById("homeMessageText");
-  if(!title||!text)return;
-  title.textContent=state.homeTitle;
-  text.innerHTML=escapeHtml(state.homeMessage).replace(/\n/g,"<br><br>");
+// PHASE 1 DATA STRUCTURE (Embedded here for simple copy-paste for now)
+const projects = [
+  {id:1, universe:"mcu", title:"Iron Man", year:2008, tag:"🐐 ONE OF THE LEGENDS", type:"legend", mine:true, rating:9.5, note:"This is where everything begins. I REALLY want you to tell me what you think about Tony.", fact:"Robert Downey Jr. became one of the most important casting choices in the MCU's history.", symbol:"◉"},
+  {id:2, universe:"mcu", title:"The Incredible Hulk", year:2008, tag:"😐 MEH… BUT WE MOVE", type:"meh", mine:false, rating:5.5, note:"Not my favourite, but we're committed to the mission.", fact:"Edward Norton played Bruce Banner before Mark Ruffalo eventually took over the role.", symbol:"◆"},
+  {id:3, universe:"mcu", title:"Iron Man 2", year:2010, tag:"❤️ WATCH WITH ME", type:"mine", mine:true, rating:7, note:"There are things in here you'll appreciate later. Trust me.", fact:"Iron Man 2 helped introduce Black Widow and expanded the connections leading toward The Avengers.", symbol:"✦"},
+  {id:4, universe:"mcu", title:"Thor", year:2011, tag:"👀 PAY ATTENTION", type:"important", mine:false, rating:7.5, note:"Meet someone who becomes VERY important.", fact:"Kenneth Branagh directed Thor and brought a Shakespearean sensibility to Asgard.", symbol:"⌁"},
+  {id:5, universe:"mcu", title:"Captain America: The First Avenger", year:2011, tag:"💖 PLEASE WATCH FOR ME", type:"mine", mine:true, rating:8.5, note:"This one has a special place in my Marvel brain.", fact:"Chris Evans initially hesitated to accept the role of Captain America.", symbol:"✚"},
+  {id:6, universe:"mcu", title:"The Avengers", year:2012, tag:"🔥 YOU MADE IT", type:"legend", mine:true, rating:9, note:"Okay. NOW it starts getting serious.", fact:"The Avengers became the first Marvel Studios movie to cross $1 billion worldwide.", symbol:"A"},
+  
+  // Quick examples to prove the Universe Tabs work
+  {id:101, universe:"sony", title:"Spider-Man", year:2002, tag:"🕸️ CLASSIC", type:"fun", mine:true, rating:8.0, note:"The classic Tobey Maguire era. With great power...", fact:"The famous upside-down kiss scene was filmed while Tobey Maguire's sinuses were filling up with rainwater.", symbol:"🕸"},
+  {id:201, universe:"fox", title:"X-Men", year:2000, tag:"❌ MUTANTS", type:"important", mine:false, rating:7.5, note:"The movie that kicked off the modern superhero craze.", fact:"Hugh Jackman was cast as Wolverine very late in production, replacing Dougray Scott.", symbol:"X"}
+];
+
+const DEFAULT_HOME_TITLE = "💌 A message from Ansh";
+const DEFAULT_HOME_MESSAGE = "I made this because I want you to experience all the Marvel things I've spent way too much of my life obsessing over.\n\nSome are here because they're genuinely amazing. Some are here because they're important. And some are here because I specifically want to watch them with you.\n\nGood luck. ❤️";
+
+let state = JSON.parse(localStorage.getItem("bugguMCUState") || "null") || {
+  watched: {}, ratings: {}, custom: {}, secrets: 0,
+  homeTitle: DEFAULT_HOME_TITLE, homeMessage: DEFAULT_HOME_MESSAGE
+};
+state.homeTitle = state.homeTitle || DEFAULT_HOME_TITLE;
+state.homeMessage = state.homeMessage || DEFAULT_HOME_MESSAGE;
+
+function save() { localStorage.setItem("bugguMCUState", JSON.stringify(state)); }
+
+function renderHomeMessage() {
+  document.getElementById("homeMessageTitle").textContent = state.homeTitle;
+  document.getElementById("homeMessageText").innerHTML = escapeHtml(state.homeMessage).replace(/\n/g, "<br>");
 }
-function saveHomeMessage(){
-  const title=document.getElementById("homeTitle").value.trim();
-  const message=document.getElementById("homeMessage").value.trim();
-  state.homeTitle=title||DEFAULT_HOME_TITLE;
-  state.homeMessage=message||DEFAULT_HOME_MESSAGE;
-  save();renderHomeMessage();renderControls();toast("Homepage message saved ❤️");
+
+function setUniverse(uni, btn) {
+  currentUniverse = uni;
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderProjects();
 }
-function resetHomeMessage(){
-  state.homeTitle=DEFAULT_HOME_TITLE;
-  state.homeMessage=DEFAULT_HOME_MESSAGE;
-  save();renderHomeMessage();renderControls();toast("Homepage message reset");
-}
-function getData(p){
-  return {...p,...(state.custom[p.id]||{})};
-}
-function verdictClass(type){
-  return ({
-    legend:"legend", meh:"meh", mine:"mine", important:"important", fun:"fun"
-  }[type] || "fun");
-}
-function verdictIcon(type){
-  return ({
-    legend:"★", meh:"~", mine:"♥", important:"!", fun:"✦"
-  }[type] || "✦");
-}
-function characterFor(p){
-  const map={1:"arc",2:"hulk",3:"widow",4:"mjolnir",5:"shield",6:"avengers",7:"arc",8:"mjolnir",9:"shield",10:"ship",11:"vision",12:"ant"};
-  return map[p.id]||"star";
-}
-function renderProjects(){
-  const q=(document.getElementById("search").value||"").toLowerCase();
-  const box=document.getElementById("projects"); box.innerHTML="";
-  projects.map(getData).filter(p=>{
-    const text=(p.title+" "+p.tag+" "+p.note).toLowerCase();
-    if(q&&!text.includes(q)) return false;
-    if(filter==="unwatched"&&state.watched[p.id]) return false;
-    if(filter==="mine"&&!p.mine) return false;
-    if(filter==="legend"&&p.type!=="legend") return false;
-    return true;
-  }).forEach(p=>{
-    const card=document.createElement("article");
-    card.className="project collectible "+(state.watched[p.id]?"completed":"");
-    card.innerHTML=`
-      <div class="card-art art-${characterFor(p)}">
-        <div class="art-glow"></div>
-        <div class="art-symbol">${artSymbol(characterFor(p))}</div>
-        <div class="art-caption">${p.year} • ${p.type==="legend"?"LEGEND":p.type==="meh"?"WE MOVE":"MARVEL"}</div>
-        ${p.mine?'<div class="with-ansh">♥ ANSH WANTS THIS ONE</div>':""}
+
+function getData(p) { return { ...p, ...(state.custom[p.id] || {}) }; }
+
+function verdictIcon(type) { return { legend: "★", meh: "~", mine: "♥", important: "!", fun: "✦" }[type] || "✦"; }
+
+function renderProjects() {
+  const box = document.getElementById("projects");
+  box.innerHTML = "";
+
+  let list = projects.map(getData).filter(p => currentUniverse === "all" || p.universe === currentUniverse);
+
+  list.forEach(p => {
+    const isWatched = !!state.watched[p.id];
+    const card = document.createElement("article");
+    card.className = `project collectible ${isWatched ? "completed" : ""}`;
+    card.innerHTML = `
+      <div class="card-art ${p.universe}">
+        <div class="art-symbol">${p.symbol}</div>
+        <div class="art-caption">${p.year} • ${p.universe.toUpperCase()} UNIVERSE</div>
       </div>
       <div class="card-body">
         <div class="project-top">
-          <div><div class="year">${p.year} • Marvel</div><h3>${p.title}</h3></div>
-          <div class="verdict ${verdictClass(p.type)}"><span>${verdictIcon(p.type)}</span>${p.tag.replace(/^[^A-Za-z0-9]+/,"")}</div>
+          <div><div class="year-badge">${p.year}</div><h3>${p.title}</h3></div>
+          <div class="verdict ${p.type}"><span>${verdictIcon(p.type)}</span>${p.tag}</div>
         </div>
         <p class="note"><strong>Ansh says:</strong> ${p.note}</p>
-
+        
         <details class="reveal">
           <summary>🔎 Discover something</summary>
           <div class="fact"><strong>FUN FACT</strong>${p.fact}</div>
         </details>
 
-        <details class="reveal secret">
-          <summary>🥚 There may be something hidden here...</summary>
-          <div class="secret-box">You found the first layer. The real Easter eggs will appear as we build the full universe. 👀</div>
-        </details>
-
         <div class="controls">
-          <label>Your rating<select onchange="rateMovie(${p.id},this.value)">
-            <option value="">Not rated</option>${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${state.ratings[p.id]==n?"selected":""}>${n}/10</option>`).join("")}
-          </select></label>
+          <label>Your rating
+            <select onchange="rateMovie(${p.id},this.value)">
+              <option value="">Not rated</option>
+              ${[1,2,3,4,5,6,7,8,9,10].map(n => `<option value="${n}" ${state.ratings[p.id]==n ? "selected" : ""}>${n}/10</option>`).join("")}
+            </select>
+          </label>
           <label>Ansh rating<div class="ansh-score">${p.rating}/10</div></label>
         </div>
-        <label class="watch"><input type="checkbox" ${state.watched[p.id]?"checked":""} onchange="toggleWatched(${p.id},this.checked)"> I watched it <span>♥</span></label>
-        ${p.mine?'<div class="mini">♥ This one is specifically on Ansh’s “watch together” list.</div>':""}
+
+        <div class="watch-row">
+          <label class="watch">
+            <input type="checkbox" ${isWatched ? "checked" : ""} onchange="toggleWatched(${p.id}, this.checked)">
+            <span>I watched it!</span>
+          </label>
+          ${p.mine ? `<button class="party-btn" onclick="openWatchModal(${p.id})">🍿 Watch with Ansh</button>` : ""}
+        </div>
       </div>
     `;
     box.appendChild(card);
   });
   updateStats();
 }
-function artSymbol(kind){
-  return ({
-    arc:"◉",hulk:"◆",widow:"✦",mjolnir:"⌁",shield:"✚",avengers:"A",ship:"✦",vision:"◇",ant:"·",star:"✦"
-  }[kind]||"✦");
+
+function toggleWatched(id, v) {
+  state.watched[id] = v;
+  if(v) {
+    confetti({ particleCount: 120, spread: 70, origin: { y: 0.65 } });
+    toast("Movie logged! 🍿");
+  }
+  save(); renderProjects(); renderControls();
 }
 
-function toggleWatched(id,v){state.watched[id]=v;save();renderProjects();renderControls();}
-function rateMovie(id,v){if(v)state.ratings[id]=Number(v);else delete state.ratings[id];save();renderProjects();renderControls();}
-function updateStats(){
-  const count=Object.values(state.watched).filter(Boolean).length,total=projects.length,pct=Math.round(count/total*100);
-  document.getElementById("watchedCount").textContent=count;
-  document.getElementById("completion").textContent=pct+"%";
-  document.getElementById("progressText").textContent=count+" / "+total;
-  document.getElementById("progressBar").style.width=pct+"%";
-  const r=Object.values(state.ratings).filter(Boolean);
-  document.getElementById("averageRating").textContent=r.length?(r.reduce((a,b)=>a+b,0)/r.length).toFixed(1):"—";
+function rateMovie(id, v) {
+  if (v) state.ratings[id] = Number(v); else delete state.ratings[id];
+  save(); renderProjects(); renderControls();
+}
+
+function updateStats() {
+  const count = Object.values(state.watched).filter(Boolean).length;
+  const total = projects.length;
+  const pct = Math.round((count / total) * 100) || 0;
+
+  document.getElementById("watchedCount").textContent = count;
+  document.getElementById("completion").textContent = pct + "%";
+  document.getElementById("progressText").textContent = count + " / " + total;
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("secretsCount").textContent = state.secrets || 0;
+  
+  const r = Object.values(state.ratings).filter(Boolean);
+  document.getElementById("averageRating").textContent = r.length ? (r.reduce((a, b) => a + b, 0) / r.length).toFixed(1) : "—";
   renderAchievements();
 }
-function renderAchievements(){
- const c=Object.values(state.watched).filter(Boolean).length;
- const list=[
-  ["🥚","First Discovery","Watch your first project.",c>=1],
-  ["🍿","Getting Serious","Watch 5 projects.",c>=5],
-  ["🦸‍♀️","Marvel Girl","Watch 10 projects.",c>=10],
-  ["❤️","Date Night","Watch one project marked Watch With Ansh.",projects.some(p=>p.mine&&state.watched[p.id])],
-  ["⭐","Opinionated","Rate 5 projects.",Object.keys(state.ratings).length>=5],
-  ["🐜","Ant-Man Approved","Watch Ant-Man.",!!state.watched[12]],
-  ["👑","Phase One Survivor","Finish this first batch.",c>=projects.length]
- ];
- document.getElementById("achievementCount").textContent=list.filter(x=>x[3]).length+" / "+list.length;
- document.getElementById("achievementList").innerHTML=list.map(x=>`<div class="achievement ${x[3]?"":"locked"}"><div class="achievement-icon">${x[0]}</div><h4>${x[1]}</h4><p>${x[2]}</p><p>${x[3]?"✅ UNLOCKED":"🔒 LOCKED"}</p></div>`).join("");
+
+function renderAchievements() {
+  const c = Object.values(state.watched).filter(Boolean).length;
+  const mcuCount = projects.filter(p => p.universe === "mcu" && state.watched[p.id]).length;
+  
+  const list = [
+    ["🥚", "First Discovery", "Watch your first project.", c >= 1],
+    ["🍿", "Getting Serious", "Watch 5 projects.", c >= 5],
+    ["👔", "Suit Up!", "Complete Phase One of the MCU.", mcuCount >= 6],
+    ["❤️", "Date Night", "Watch a project marked Watch With Ansh.", projects.some(p => p.mine && state.watched[p.id])],
+    ["⭐", "Opinionated", "Rate 5 projects.", Object.keys(state.ratings).length >= 5],
+    ["🤫", "Keen Eye", "Find your first hidden secret.", state.secrets >= 1]
+  ];
+  
+  document.getElementById("achievementList").innerHTML = list.map(x => `
+    <div class="achievement ${x[3] ? "" : "locked"}">
+      <div class="achievement-icon">${x[0]}</div>
+      <h4>${x[1]}</h4><p>${x[2]}</p><p style="margin-top:8px; font-weight:700; font-size:11px; color:${x[3]?'var(--accent-dark)':'var(--muted)'}">${x[3] ? "✅ UNLOCKED" : "🔒 LOCKED"}</p>
+    </div>
+  `).join("");
 }
-function setFilter(f){filter=f;renderProjects();}
-function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"});}
-function randomMovie(){
- const remaining=projects.filter(p=>!state.watched[p.id]);
- if(!remaining.length){toast("Miya has survived the whole journey. 👑");return}
- const p=remaining[Math.floor(Math.random()*remaining.length)];
- toast("🎬 Tonight's mission: "+p.title);
- setTimeout(()=>document.getElementById("projects").scrollIntoView({behavior:"smooth"}),650);
+
+// WATCH MODAL
+function openWatchModal(id) {
+  const project = getData(projects.find(p => p.id === id));
+  document.getElementById("watchMovieTitle").textContent = project.title;
+  document.getElementById("watchMovieNote").innerHTML = `<strong>Ansh says:</strong> "${project.note}"`;
+  document.getElementById("watchModal").classList.add("show");
 }
-function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
-function openControl(){document.getElementById("modal").classList.add("show");document.getElementById("pin").focus();}
-function closeModal(){document.getElementById("modal").classList.remove("show");}
-function login(){
- if(document.getElementById("pin").value!==DEFAULT_PIN){toast("Wrong PIN 😭");return}
- document.getElementById("loginBox").classList.add("hidden");
- document.getElementById("controlBox").classList.remove("hidden");
- renderControls();
+function closeWatchModal() { document.getElementById("watchModal").classList.remove("show"); }
+
+// RARE VISITOR ENGINE
+function spawnRareVisitor() {
+  const egg = document.createElement("div");
+  egg.className = "rare-visitor";
+  egg.textContent = "🐜"; // Ant-Man!
+  egg.onclick = () => {
+    egg.classList.add("discovered");
+    state.secrets = (state.secrets || 0) + 1;
+    save(); updateStats();
+    toast("You found a hidden secret! 🥚");
+    setTimeout(() => egg.remove(), 500);
+  };
+  document.body.appendChild(egg);
+  setTimeout(() => { if (document.body.contains(egg)) egg.remove(); }, 8000);
 }
-function renderControls(){
- if(document.getElementById("controlBox").classList.contains("hidden"))return;
- const titleInput=document.getElementById("homeTitle");
- const messageInput=document.getElementById("homeMessage");
- if(titleInput) titleInput.value=state.homeTitle;
- if(messageInput) messageInput.value=state.homeMessage;
- document.getElementById("controls").innerHTML=projects.map(p=>{
-   const d=getData(p);
-   return `<div class="control-card">
-     <h4>${p.title}</h4>
-     <label>Verdict / tag<input type="text" id="tag-${p.id}" value="${escapeAttr(d.tag)}"></label>
-     <label style="display:block;margin-top:9px">Ansh rating<input type="text" id="rating-${p.id}" value="${escapeAttr(d.rating)}"></label>
-     <label style="display:block;margin-top:9px">Ansh message<textarea id="note-${p.id}" rows="3">${escapeHtml(d.note)}</textarea></label>
-     <label class="watch"><input id="mine-${p.id}" type="checkbox" ${d.mine?"checked":""}> ❤️ Watch With Ansh</label>
-     <button class="smallbtn" onclick="saveProject(${p.id})">Save this project</button>
-   </div>`;
- }).join("");
+setInterval(() => { if (Math.random() > 0.7) spawnRareVisitor(); }, 35000);
+
+function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2800); }
+function go(id) { document.getElementById(id).scrollIntoView({ behavior: "smooth" }); }
+
+// CONTROL ROOM
+function openControl() { document.getElementById("modal").classList.add("show"); document.getElementById("pin").focus(); }
+function closeModal() { document.getElementById("modal").classList.remove("show"); }
+function login() {
+  if(document.getElementById("pin").value !== DEFAULT_PIN) { toast("Wrong PIN 😭"); return; }
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("controlBox").classList.remove("hidden");
+  renderControls();
 }
-function saveProject(id){
- const base=projects.find(p=>p.id===id);
- state.custom[id]={
-  tag:document.getElementById("tag-"+id).value,
-  rating:document.getElementById("rating-"+id).value,
-  note:document.getElementById("note-"+id).value,
-  mine:document.getElementById("mine-"+id).checked
- };
- save();renderProjects();renderControls();toast("Saved ❤️");
+function renderControls() {
+  if (document.getElementById("controlBox").classList.contains("hidden")) return;
+  document.getElementById("homeTitle").value = state.homeTitle;
+  document.getElementById("homeMessage").value = state.homeMessage;
+  
+  document.getElementById("controls").innerHTML = projects.map(p => {
+    const d = getData(p);
+    return `<div class="control-card">
+      <h4>${p.title}</h4>
+      <label>Verdict / tag<input type="text" id="tag-${p.id}" value="${escapeAttr(d.tag)}"></label>
+      <label style="display:block;margin-top:9px">Ansh rating<input type="text" id="rating-${p.id}" value="${escapeAttr(d.rating)}"></label>
+      <label style="display:block;margin-top:9px">Ansh message<textarea id="note-${p.id}" rows="3">${escapeHtml(d.note)}</textarea></label>
+      <label class="watch" style="margin-top:9px"><input id="mine-${p.id}" type="checkbox" ${d.mine ? "checked" : ""}> ❤️ Watch With Ansh</label>
+      <button class="smallbtn" onclick="saveProject(${p.id})">Save this project</button>
+    </div>`;
+  }).join("");
 }
-function escapeAttr(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-function escapeHtml(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal();});
-renderHomeMessage();renderProjects();renderAchievements();
+function saveProject(id) {
+  state.custom[id] = {
+    tag: document.getElementById("tag-" + id).value,
+    rating: document.getElementById("rating-" + id).value,
+    note: document.getElementById("note-" + id).value,
+    mine: document.getElementById("mine-" + id).checked
+  };
+  save(); renderProjects(); renderControls(); toast("Saved ❤️");
+}
+function saveHomeMessage() {
+  state.homeTitle = document.getElementById("homeTitle").value.trim() || DEFAULT_HOME_TITLE;
+  state.homeMessage = document.getElementById("homeMessage").value.trim() || DEFAULT_HOME_MESSAGE;
+  save(); renderHomeMessage(); toast("Message saved ❤️");
+}
+
+function escapeAttr(s) { return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function escapeHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+document.getElementById("modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
+document.getElementById("watchModal").addEventListener("click", e => { if (e.target.id === "watchModal") closeWatchModal(); });
+
+renderHomeMessage();
+renderProjects();
 </script>
 </body>
 </html>
