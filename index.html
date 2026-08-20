@@ -190,10 +190,9 @@ footer{text-align:center;padding:45px 0;color:var(--muted);font-size:13px}
 </section>
 
 <section class="section" id="about">
-  <div class="quote"><strong>💌 A message from Ansh</strong>
-    I made this because I want you to experience all the Marvel things I've spent way too much of my life obsessing over.<br><br>
-    Some are here because they're genuinely amazing. Some are here because they're important. And some are here because I specifically want to watch them with you.<br><br>
-    Good luck. ❤️
+  <div class="quote">
+    <strong id="homeMessageTitle">💌 A message from Ansh</strong>
+    <div id="homeMessageText"></div>
   </div>
 </section>
 <footer>Made with questionable amounts of Marvel knowledge by Ansh ❤️</footer>
@@ -209,6 +208,13 @@ footer{text-align:center;padding:45px 0;color:var(--muted);font-size:13px}
     </div>
     <div id="controlBox" class="hidden">
       <p class="section-sub">Change your verdicts, ratings, notes and “watch with Ansh” choices without editing the website code.</p>
+      <div class="control-card" style="margin-bottom:15px">
+        <h4>💌 Homepage Message</h4>
+        <label>Heading<input type="text" id="homeTitle" placeholder="A message from Ansh"></label>
+        <label style="display:block;margin-top:9px">Message<textarea id="homeMessage" rows="6" placeholder="Write whatever you want Miya to see..."></textarea></label>
+        <button class="smallbtn" onclick="saveHomeMessage()">Save Homepage Message</button>
+        <button class="smallbtn danger" onclick="resetHomeMessage()">Reset to original</button>
+      </div>
       <div id="controls"></div>
     </div>
   </div>
@@ -232,9 +238,32 @@ const projects=[
 {id:11,title:"Avengers: Age of Ultron",year:2015,tag:"👀 PAY ATTENTION",type:"important",mine:false,rating:7.5,note:"Things are about to get MUCH bigger.",fact:"The film introduced several characters who became major parts of the MCU."},
 {id:12,title:"Ant-Man",year:2015,tag:"🐜 FUN ONE",type:"fun",mine:false,rating:7.5,note:"Tiny man. Big responsibilities.",fact:"Ant-Man had been in development at Marvel for many years before finally reaching the screen."}
 ];
-let state=JSON.parse(localStorage.getItem("bugguState")||"null")||{watched:{},ratings:{},custom:{}};
+const DEFAULT_HOME_TITLE="💌 A message from Ansh";
+const DEFAULT_HOME_MESSAGE="I made this because I want you to experience all the Marvel things I've spent way too much of my life obsessing over.\n\nSome are here because they're genuinely amazing. Some are here because they're important. And some are here because I specifically want to watch them with you.\n\nGood luck. ❤️";
+let state=JSON.parse(localStorage.getItem("bugguState")||"null")||{watched:{},ratings:{},custom:{},homeTitle:DEFAULT_HOME_TITLE,homeMessage:DEFAULT_HOME_MESSAGE};
+state.homeTitle=state.homeTitle||DEFAULT_HOME_TITLE;
+state.homeMessage=state.homeMessage||DEFAULT_HOME_MESSAGE;
 
 function save(){localStorage.setItem("bugguState",JSON.stringify(state));}
+function renderHomeMessage(){
+  const title=document.getElementById("homeMessageTitle");
+  const text=document.getElementById("homeMessageText");
+  if(!title||!text)return;
+  title.textContent=state.homeTitle;
+  text.innerHTML=escapeHtml(state.homeMessage).replace(/\n/g,"<br><br>");
+}
+function saveHomeMessage(){
+  const title=document.getElementById("homeTitle").value.trim();
+  const message=document.getElementById("homeMessage").value.trim();
+  state.homeTitle=title||DEFAULT_HOME_TITLE;
+  state.homeMessage=message||DEFAULT_HOME_MESSAGE;
+  save();renderHomeMessage();renderControls();toast("Homepage message saved ❤️");
+}
+function resetHomeMessage(){
+  state.homeTitle=DEFAULT_HOME_TITLE;
+  state.homeMessage=DEFAULT_HOME_MESSAGE;
+  save();renderHomeMessage();renderControls();toast("Homepage message reset");
+}
 function getData(p){
   return {...p,...(state.custom[p.id]||{})};
 }
@@ -355,6 +384,10 @@ function login(){
 }
 function renderControls(){
  if(document.getElementById("controlBox").classList.contains("hidden"))return;
+ const titleInput=document.getElementById("homeTitle");
+ const messageInput=document.getElementById("homeMessage");
+ if(titleInput) titleInput.value=state.homeTitle;
+ if(messageInput) messageInput.value=state.homeMessage;
  document.getElementById("controls").innerHTML=projects.map(p=>{
    const d=getData(p);
    return `<div class="control-card">
@@ -380,7 +413,7 @@ function saveProject(id){
 function escapeAttr(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 function escapeHtml(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal();});
-renderProjects();renderAchievements();
+renderHomeMessage();renderProjects();renderAchievements();
 </script>
 </body>
 </html>
