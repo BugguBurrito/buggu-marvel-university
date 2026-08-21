@@ -50,7 +50,7 @@ header { padding: 22px 0; display: flex; align-items: center; justify-content: s
 .hero p { max-width: 660px; margin-top: 18px; color: var(--muted); font-size: 16.5px; line-height: 1.65; }
 
 /* SVG DECORATIONS */
-.hero-deco { position: absolute; opacity: 0.7; pointer-events: none; }
+.hero-deco { position: absolute; opacity: 0.7; pointer-events: none; will-change: transform; }
 .hero-deco.mjolnir { right: 35px; bottom: 25px; width: 75px; height: 95px; animation: float 4.5s ease-in-out infinite; }
 .hero-deco.cat-blonde { right: 40px; top: 25px; width: 45px; animation: glow 3s ease-in-out infinite alternate; filter: drop-shadow(0 0 12px rgba(245, 217, 136, 0.8)); color: #f5d988; }
 .hero-deco.cat-white { right: 140px; top: 35px; width: 55px; animation: float 4s ease-in-out infinite -1s; color: #ffffff; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));}
@@ -451,8 +451,8 @@ function renderControls() {
   if (projects.length > 10) { 
     setTimeout(() => { 
       const remainingBatch = projects.slice(10); 
-      controlsContainer.innerHTML += remainingBatch.map(generateControlCard).join(""); 
-    }, 300); 
+      controlsContainer.insertAdjacentHTML('beforeend', remainingBatch.map(generateControlCard).join(""));
+    }, 350); 
   }
 }
 
