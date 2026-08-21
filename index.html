@@ -365,7 +365,6 @@ function renderProjects() {
   
   let list = projects.map(getData).filter(p => currentUniverse === "all" || p.universe === currentUniverse);
   
-  // Filter by search bar
   if (q) {
      list = list.filter(p => (p.title + " " + (p.tag||"") + " " + (p.note||"") + " " + (p.fact||"")).toLowerCase().includes(q));
   }
@@ -434,15 +433,16 @@ function updateMiyaProfile() {
   const aiMessage = document.getElementById("aiMessage");
   const watchedCount = Object.values(state.watched).filter(Boolean).length;
   
-  // F.R.I.D.A.Y. Simulated AI Logic
-  if (watchedCount === 0) {
-      aiMessage.innerHTML = "Good evening, Miya. I am your automated assistant. You have 0 missions logged. Ansh highly recommends you begin with Iron Man.";
-  } else if (watchedCount < 5) {
-      aiMessage.innerHTML = `Analyzing progress... You have successfully completed ${watchedCount} assignments. Remember to review the 'Date Night' protocols waiting for Ansh.`;
-  } else if (state.secrets > 0) {
-      aiMessage.innerHTML = `Impressive situational awareness. You have completed ${watchedCount} assignments and discovered ${state.secrets} hidden files. Keep scanning for anomalies.`;
-  } else {
-      aiMessage.innerHTML = `System update: ${watchedCount} assignments completed. Your resilience is noted. Ansh's approval metrics are operating at maximum capacity.`;
+  if (aiMessage) {
+    if (watchedCount === 0) {
+        aiMessage.innerHTML = "Good evening, Miya. I am your automated assistant. You have 0 missions logged. Ansh highly recommends you begin with Iron Man.";
+    } else if (watchedCount < 5) {
+        aiMessage.innerHTML = `Analyzing progress... You have successfully completed ${watchedCount} assignments. Remember to review the 'Date Night' protocols waiting for Ansh.`;
+    } else if (state.secrets > 0) {
+        aiMessage.innerHTML = `Impressive situational awareness. You have completed ${watchedCount} assignments and discovered ${state.secrets} hidden files. Keep scanning for anomalies.`;
+    } else {
+        aiMessage.innerHTML = `System update: ${watchedCount} assignments completed. Your resilience is noted. Ansh's approval metrics are operating at maximum capacity.`;
+    }
   }
 
   if(rated.length < 3) {
