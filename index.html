@@ -39,8 +39,9 @@ header { padding: 22px 0; display: flex; align-items: center; justify-content: s
 .logo { font: 900 22px 'Playfair Display', serif; }
 .logo span { color: var(--accent); }
 .nav { display: flex; gap: 8px; flex-wrap: wrap; }
-.nav button { border: 1px solid var(--border); background: rgba(255, 255, 255, 0.78); padding: 9px 16px; border-radius: 999px; color: var(--text); font-weight: 500; font-size: 13.5px; transition: all 0.2s ease; backdrop-filter: blur(8px); }
+.nav button { border: 1px solid var(--border); background: rgba(255, 255, 255, 0.78); padding: 9px 16px; border-radius: 999px; color: var(--text); font-weight: 500; font-size: 13.5px; transition: all 0.2s ease; backdrop-filter: blur(8px); display: flex; align-items: center; }
 .nav button:hover { background: var(--white); border-color: var(--accent); transform: translateY(-1px); }
+.nav .tab-icon { width: 16px; height: 16px; opacity: 0.8; }
 
 /* HERO */
 .hero { position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 36px; padding: 56px 46px; background: linear-gradient(135deg, rgba(246, 220, 232, 0.9), rgba(231, 222, 246, 0.85), rgba(220, 239, 232, 0.8)); box-shadow: var(--shadow); }
@@ -120,7 +121,8 @@ label { font-size: 11.5px; color: var(--muted); font-weight: 600; }
 .watch-row { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border); }
 .watch { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
 .watch input { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
-.party-btn { background: var(--accent); color: white; padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 700; transition: 0.2s;}
+.party-btn { background: var(--accent); color: white; padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 700; transition: 0.2s; border: none;}
+.party-btn:hover { background: var(--accent-dark); transform: translateY(-2px);}
 
 /* REVEAL/ACCORDION */
 .reveal{margin-top:12px;border:1px solid var(--border);border-radius:15px;background:rgba(255,255,255,.5);overflow:hidden}
@@ -151,7 +153,7 @@ footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13
 @media (max-width: 820px) {
   .hero { padding: 36px 24px; }
   .stats, .profile-card { grid-template-columns: repeat(2, 1fr); }
-  .projects, .achievements { grid-template-columns: 1fr; }
+  .projects { grid-template-columns: 1fr; }
   .hero-deco.cat-grey, .hero-deco.pug, .hero-deco.cat-white { display: none; }
 }
 </style>
@@ -162,14 +164,22 @@ footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13
   <header>
     <div class="logo">Buggu <span>Marvel University</span> ❤️</div>
     <nav class="nav">
-      <button onclick="go('profile')">🧠 Miya's Profile</button>
-      <button onclick="go('journey')">🎬 Journey</button>
-      <button onclick="openControl()">🔐 Ansh</button>
+      <button onclick="go('profile')">
+        <svg class="tab-icon" style="margin-right:4px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> 
+        Miya's Profile
+      </button>
+      <button onclick="go('journey')">
+        <svg class="tab-icon" style="margin-right:4px;" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> 
+        Journey
+      </button>
+      <button onclick="openControl()">
+        <svg class="tab-icon" style="margin-right:4px;" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg> 
+        Ansh
+      </button>
     </nav>
   </header>
 
   <section class="hero">
-    <!-- PASTEL SVG COMPANIONS -->
     <svg class="hero-deco cat-blonde" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-4c-.83 0-1.5-.67-1.5-1.5S14.17 8.5 15 8.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm-6 4c-.83 0-1.5-.67-1.5-1.5S8.17 12.5 9 12.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-4c-.83 0-1.5-.67-1.5-1.5S8.17 8.5 9 8.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
     <svg class="hero-deco cat-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-9 9c0 4.14 2.8 7.6 6.64 8.71A1.02 1.02 0 0 0 10.5 19.5v-1.78c-2.51.55-3.04-1.21-3.04-1.21-.45-1.15-1.1-1.46-1.1-1.46-.91-.62.07-.61.07-.61 1.01.07 1.54 1.04 1.54 1.04.9 1.54 2.36 1.1 2.94.84.09-.65.35-1.1.64-1.35-2.01-.23-4.12-1.01-4.12-4.48 0-.99.35-1.8 9.3-2.43.1-.19.35-.99-.09-2.4 0 0 .76-.24 2.49.93.72-.2 1.5-.3 2.26-.3.76 0 1.54.1 2.26.3 1.73-1.17 2.49-.93 2.49-.93-.44 1.41-.19 2.21-.09 2.4 9.55.63 9.9 1.44 9.9 2.43 0 3.48-2.12 4.25-4.13 4.47.36.31.68.92.68 1.85v2.75c0 .48.24.96.88.8A9 9 0 1 0 12 3z"/></svg>
     <svg class="hero-deco cat-grey" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM9 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
@@ -185,7 +195,6 @@ footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13
     </div>
   </section>
 
-  <!-- THE COMPLETE UNIVERSE TABS -->
   <div class="universe-nav-wrapper" id="universeNav">
     <div class="universe-tabs">
       <button class="tab-btn active" onclick="setUniverse('all', this)"><svg viewBox="0 0 24 24" class="tab-icon"><path fill="currentColor" d="M12 2L2 12l3 3 7-7 7 7 3-3L12 2zm0 14.5c-2.5 0-4.5 2-4.5 4.5h9c0-2.5-2-4.5-4.5-4.5z"/></svg>All</button>
@@ -205,7 +214,6 @@ footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13
     <div class="stat"><div class="stat-label">Secrets Found</div><div class="stat-number" id="secretsCount">0</div></div>
   </section>
 
-  <!-- MIYA'S PROFILE (NEW) -->
   <section class="section" id="profile">
     <h2 class="section-title">🧠 Miya's Profile</h2>
     <p class="section-sub">Your personal Marvel DNA, calculated from your ratings and watch history.</p>
@@ -237,7 +245,6 @@ footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13
   <footer>Made with questionable amounts of Marvel obsession by Ansh for Miya ❤️</footer>
 </div>
 
-<!-- WATCH WITH ANSH MODAL -->
 <div class="modal" id="watchModal">
   <div class="modal-box" style="width: min(500px, 100%); text-align: center;">
     <div class="modal-top"><h2>❤️ Movie Night</h2><button class="close" onclick="closeWatchModal()">✕</button></div>
@@ -250,7 +257,6 @@ footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13
   </div>
 </div>
 
-<!-- CONTROL ROOM MODAL -->
 <div class="modal" id="modal">
   <div class="modal-box">
     <div class="modal-top"><h2>🔐 Ansh Control Room</h2><button class="close" onclick="closeModal()">✕</button></div>
@@ -259,6 +265,12 @@ footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13
       <button class="party-btn" style="margin-top:14px;" onclick="login()">Enter Dashboard</button>
     </div>
     <div id="controlBox" class="hidden">
+      <div class="control-card" style="margin-bottom:15px">
+        <h4>💌 Homepage Love Letter</h4>
+        <label>Heading<input type="text" id="homeTitle"></label>
+        <label style="display:block;margin-top:9px">Message<textarea id="homeMessage" rows="5" style="width:100%; box-sizing:border-box;"></textarea></label>
+        <button class="smallbtn" onclick="saveHomeMessage()">Save Letter</button>
+      </div>
       <div id="controls" style="display: grid; gap: 15px;"></div>
     </div>
   </div>
@@ -273,7 +285,6 @@ footer { text-align: center; padding: 50px 0; color: var(--muted); font-size: 13
 const DEFAULT_PIN = "1234";
 let currentUniverse = "all";
 
-// MODULAR DATA LOADING
 const projects = typeof marvelDatabase !== 'undefined' ? marvelDatabase : [];
 
 let state = JSON.parse(localStorage.getItem("bugguMCUState") || "null") || {
@@ -355,7 +366,6 @@ function updateStats() {
   updateMiyaProfile();
 }
 
-// MIYA PROFILE LOGIC
 function updateMiyaProfile() {
   const rated = Object.keys(state.ratings);
   if(rated.length < 3) {
@@ -364,7 +374,6 @@ function updateMiyaProfile() {
     return;
   }
   
-  // Very basic profile generation for Phase 1
   document.getElementById("favUniverse").textContent = "Spider-Verse (Probably)";
   document.getElementById("topVibe").textContent = "The Chaos Hero";
   
@@ -377,13 +386,11 @@ function updateMiyaProfile() {
 function openWatchModal(id) { const project = getData(projects.find(p => p.id === id)); document.getElementById("watchMovieTitle").textContent = project.title; document.getElementById("watchMovieNote").innerHTML = `<strong>Ansh says:</strong> "${project.note}"`; document.getElementById("watchModal").classList.add("show"); }
 function closeWatchModal() { document.getElementById("watchModal").classList.remove("show"); }
 
-// ADVANCED EASTER EGG ENGINE
 let hasScrolled = false;
 window.addEventListener('scroll', () => hasScrolled = true);
 
 function spawnRareVisitor() {
-  if(!hasScrolled) return; // Only spawn if she is actively using the site
-  
+  if(!hasScrolled) return;
   const egg = document.createElement("div");
   egg.className = "rare-visitor";
   egg.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`; 
@@ -396,30 +403,70 @@ function spawnRareVisitor() {
   document.body.appendChild(egg);
   setTimeout(() => { if (document.body.contains(egg)) egg.remove(); }, 8000);
 }
-// Contextual Rarity: Checks every 30 seconds, but only a 15% chance to spawn IF she is scrolling
 setInterval(() => { if (Math.random() > 0.85) spawnRareVisitor(); }, 30000);
 
 function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2800); }
 function go(id) { document.getElementById(id).scrollIntoView({ behavior: "smooth" }); }
 
-// CONTROL ROOM
 function openControl() { document.getElementById("modal").classList.add("show"); document.getElementById("pin").focus(); }
 function closeModal() { document.getElementById("modal").classList.remove("show"); }
 function login() { if(document.getElementById("pin").value !== DEFAULT_PIN) { toast("Wrong PIN 😭"); return; } document.getElementById("loginBox").classList.add("hidden"); document.getElementById("controlBox").classList.remove("hidden"); renderControls(); }
 
 function renderControls() {
   if (document.getElementById("controlBox").classList.contains("hidden")) return;
-  const controlsContainer = document.getElementById("controls"); controlsContainer.innerHTML = ""; 
-  const firstBatch = projects.slice(0, 10); controlsContainer.innerHTML = firstBatch.map(generateControlCard).join("");
-  if (projects.length > 10) { setTimeout(() => { const remainingBatch = projects.slice(10); controlsContainer.innerHTML += remainingBatch.map(generateControlCard).join(""); }, 300); }
+  
+  // Set the love letter values
+  document.getElementById("homeTitle").value = state.homeTitle;
+  document.getElementById("homeMessage").value = state.homeMessage;
+  
+  const controlsContainer = document.getElementById("controls"); 
+  controlsContainer.innerHTML = ""; 
+  
+  const firstBatch = projects.slice(0, 10); 
+  controlsContainer.innerHTML = firstBatch.map(generateControlCard).join("");
+  
+  if (projects.length > 10) { 
+    setTimeout(() => { 
+      const remainingBatch = projects.slice(10); 
+      controlsContainer.innerHTML += remainingBatch.map(generateControlCard).join(""); 
+    }, 300); 
+  }
 }
 
 function generateControlCard(p) {
   const d = getData(p);
-  return `<div class="control-card"><h4>${p.title}</h4><label>Verdict / tag<input type="text" id="tag-${p.id}" value="${escapeAttr(d.tag)}"></label><label style="display:block;margin-top:9px">Ansh rating<input type="text" id="rating-${p.id}" value="${escapeAttr(d.rating)}"></label><label style="display:block;margin-top:9px">Ansh message<textarea id="note-${p.id}" rows="3">${escapeHtml(d.note)}</textarea></label><label class="watch" style="margin-top:9px"><input id="mine-${p.id}" type="checkbox" ${d.mine ? "checked" : ""}> ❤️ Watch With Ansh</label><button class="smallbtn" onclick="saveProject(${p.id})">Save this project</button></div>`;
+  return `
+    <div class="control-card">
+      <h4 style="margin-bottom: 12px; font-size: 16px;">${p.title}</h4>
+      
+      <label style="display: block; margin-bottom: 12px;">Verdict / tag
+        <input type="text" id="tag-${p.id}" value="${escapeAttr(d.tag)}" style="width: 100%; box-sizing: border-box; margin-top: 4px;">
+      </label>
+      
+      <label style="display: block; margin-bottom: 12px;">Ansh rating
+        <input type="text" id="rating-${p.id}" value="${escapeAttr(d.rating)}" style="width: 100%; box-sizing: border-box; margin-top: 4px;">
+      </label>
+      
+      <label style="display: block; margin-bottom: 16px;">Ansh message
+        <textarea id="note-${p.id}" rows="4" style="width: 100%; box-sizing: border-box; margin-top: 6px; display: block; resize: vertical;">${escapeHtml(d.note)}</textarea>
+      </label>
+      
+      <label class="watch" style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; cursor: pointer;">
+        <input id="mine-${p.id}" type="checkbox" ${d.mine ? "checked" : ""}> ❤️ Watch With Ansh
+      </label>
+      
+      <button class="smallbtn" style="width: 100%; font-weight: 700; padding: 10px;" onclick="saveProject(${p.id})">Save this project</button>
+    </div>
+  `;
 }
 
 function saveProject(id) { state.custom[id] = { tag: document.getElementById("tag-" + id).value, rating: document.getElementById("rating-" + id).value, note: document.getElementById("note-" + id).value, mine: document.getElementById("mine-" + id).checked }; save(); renderProjects(); renderControls(); toast("Saved ❤️"); }
+
+function saveHomeMessage() {
+  state.homeTitle = document.getElementById("homeTitle").value.trim() || DEFAULT_HOME_TITLE;
+  state.homeMessage = document.getElementById("homeMessage").value.trim() || DEFAULT_HOME_MESSAGE;
+  save(); renderHomeMessage(); toast("Message saved ❤️");
+}
 
 function escapeAttr(s) { return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 function escapeHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
@@ -427,6 +474,7 @@ function escapeHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&l
 document.getElementById("modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
 document.getElementById("watchModal").addEventListener("click", e => { if (e.target.id === "watchModal") closeWatchModal(); });
 
+renderHomeMessage();
 renderProjects();
 </script>
 </body>
