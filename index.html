@@ -356,7 +356,15 @@ function setUniverse(uni, btn) {
 
 function getData(p) { return { ...p, ...(state.custom[p.id] || {}) }; }
 function verdictIcon(type) { return { legend: "★", meh: "~", mine: "♥", important: "!", fun: "✦" }[type] || "✦"; }
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
 
+const triggerJourneySearch = debounce(() => renderProjects(), 300);
 function renderProjects() {
   const box = document.getElementById("projects");
   box.innerHTML = "";
