@@ -365,47 +365,144 @@ function debounce(func, wait) {
 }
 
 const triggerJourneySearch = debounce(() => renderProjects(), 300);
+let journeyRenderCount = 0;
+const JOURNEY_BATCH_SIZE = 20;
+let filteredJourneyProjects = [];
+
 function renderProjects() {
   const box = document.getElementById("projects");
-  box.innerHTML = "";
-  
+  if (!box) return;
+
   const q = (document.getElementById("searchInput")?.value || "").toLowerCase();
-  
-  let list = projects.map(getData).filter(p => currentUniverse === "all" || p.universe === currentUniverse);
-  
+
+  filteredJourneyProjects = projects
+    .map(getData)
+    .filter(p =>
+      currentUniverse === "all" ||
+      p.universe === currentUniverse
+    );
+
   if (q) {
-     list = list.filter(p => (p.title + " " + (p.tag||"") + " " + (p.note||"") + " " + (p.fact||"")).toLowerCase().includes(q));
+    filteredJourneyProjects = filteredJourneyProjects.filter(p =>
+      (
+        p.title + " " +
+        (p.year || "") + " " +
+        (p.universe || "") + " " +
+        (p.tag || "") + " " +
+        (p.note || "") + " " +
+        (p.fact || "")
+      ).toLowerCase().includes(q)
+    );
   }
 
-  list.forEach(p => {
+  box.innerHTML = "";
+  journeyRenderCount = 0;
+
+  loadMoreProjects();
+
+  window.removeEventListener("scroll", handleJourneyScroll);
+  window.addEventListener("scroll", handleJourneyScroll);
+
+  updateStats();
+}
+
+function loadMoreProjects() {
+  const box = document.getElementById("projects");
+  if (!box) return;
+
+  const nextBatch = filteredJourneyProjects.slice(
+    journeyRenderCount,
+    journeyRenderCount + JOURNEY_BATCH_SIZE
+  );
+
+  if (nextBatch.length === 0) return;
+
+  nextBatch.forEach(p => {
     const isWatched = !!state.watched[p.id];
+
     const card = document.createElement("article");
     card.className = `project collectible ${isWatched ? "completed" : ""}`;
+
     card.innerHTML = `
       <div class="card-art ${p.universe}">
         <div class="art-symbol">${p.symbol}</div>
         <div class="art-caption">${p.year} • ${p.universe.toUpperCase()}</div>
       </div>
+
       <div class="card-body">
         <div class="project-top">
-          <div><div class="year-badge">${p.year}</div><h3>${p.title}</h3></div>
-          <div class="verdict ${p.type}"><span>${verdictIcon(p.type)}</span>${p.tag}</div>
+          <div>
+            <div class="year-badge">${p.year}</div>
+            <h3>${p.title}</h3>
+          </div>
+
+          <div class="verdict ${p.type}">
+            <span>${verdictIcon(p.type)}</span>${p.tag}
+          </div>
         </div>
-        <p class="note"><strong>Ansh says:</strong> ${p.note}</p>
-        <details class="reveal"><summary>🔎 Discover something</summary><div class="fact"><strong>FUN FACT</strong>${p.fact}</div></details>
+
+        <p class="note">
+          <strong>Ansh says:</strong> ${p.note}
+        </p>
+
+        <details class="reveal">
+          <summary>🔎 Discover something</summary>
+          <div class="fact">
+            <strong>FUN FACT</strong>${p.fact}
+          </div>
+        </details>
+
         <div class="controls">
-          <label>Your rating<select onchange="rateMovie(${p.id},this.value)"><option value="">Not rated</option>${[1,2,3,4,5,6,7,8,9,10].map(n => `<option value="${n}" ${state.ratings[p.id]==n ? "selected" : ""}>${n}/10</option>`).join("")}</select></label>
-          <label>Ansh rating<div class="ansh-score">${p.rating}/10</div></label>
+          <label>
+            Your rating
+            <select onchange="rateMovie(${p.id},this.value)">
+              <option value="">Not rated</option>
+              ${[1,2,3,4,5,6,7,8,9,10].map(n =>
+                `<option value="${n}" ${
+                  state.ratings[p.id] == n ? "selected" : ""
+                }>${n}/10</option>`
+              ).join("")}
+            </select>
+          </label>
+
+          <label>
+            Ansh rating
+            <div class="ansh-score">${p.rating}/10</div>
+          </label>
         </div>
+
         <div class="watch-row">
-          <label class="watch"><input type="checkbox" ${isWatched ? "checked" : ""} onchange="toggleWatched(${p.id}, this.checked)"><span>I watched it!</span></label>
-          ${p.mine ? `<button class="party-btn" onclick="openWatchModal(${p.id})">🍿 Date Night</button>` : ""}
+          <label class="watch">
+            <input
+              type="checkbox"
+              ${isWatched ? "checked" : ""}
+              onchange="toggleWatched(${p.id}, this.checked)"
+            >
+            <span>I watched it!</span>
+          </label>
+
+          ${
+            p.mine
+              ? `<button class="party-btn" onclick="openWatchModal(${p.id})">🍿 Date Night</button>`
+              : ""
+          }
         </div>
       </div>
     `;
+
     box.appendChild(card);
   });
-  updateStats();
+
+  journeyRenderCount += nextBatch.length;
+}
+
+function handleJourneyScroll() {
+  if (
+    window.innerHeight + window.scrollY >=
+    document.body.offsetHeight - 500
+  ) {
+    loadMoreProjects();
+  }
 }
 
 function toggleWatched(id, v) {
