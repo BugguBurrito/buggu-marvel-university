@@ -592,10 +592,20 @@ document.getElementById("modal").addEventListener("click", e => { if (e.target.i
 document.getElementById("watchModal").addEventListener("click", e => { if (e.target.id === "watchModal") closeWatchModal(); });
 
 function renderHomeMessage() {
-  document.getElementById("homeMessageTitle").textContent = state.homeTitle || "💌 A message from Ansh";
-  document.getElementById("homeMessageText").innerHTML = escapeHtml(state.homeMessage || "I made this because I want you to experience all the Marvel things I've spent way too much of my life obsessing over.\n\nSome are here because they're genuinely amazing. Some are here because they're important. And some are here because I specifically want to watch them with you.\n\nGood luck. ❤️").replace(/\n/g, "<br>");
-}
+  const title = document.getElementById("homeMessageTitle");
+  const text = document.getElementById("homeMessageText");
 
+  if (title) {
+    title.textContent = state.homeTitle || "💌 A message from Ansh";
+  }
+
+  if (text) {
+    text.innerHTML = escapeHtml(
+      state.homeMessage ||
+      "I made this because I want you to experience all the Marvel things I've spent way too much of my life obsessing over.\n\nSome are here because they're genuinely amazing. Some are here because they're important. And some are here because I specifically want to watch them with you.\n\nGood luck. ❤️"
+    ).replace(/\n/g, "<br>");
+  }
+}
 renderHomeMessage();
 renderProjects();
 </script>
