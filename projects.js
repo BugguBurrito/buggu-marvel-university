@@ -201,5 +201,136 @@ const marvelDatabase = [
     note: "A crucial epilogue to Iron Man 3. It sets up Shang-Chi way in advance.",
     fact: "This short quietly retconned the twist in Iron Man 3 by revealing that the real Ten Rings organization actually existed.",
     symbol: "S"
-  }
+},
+
+  // ==========================================
+  // BATCH 2: THE MULTIVERSE SAGA (PHASE 4-6)
+  // ==========================================
+  
+  // Phase 4
+  {
+    id: 101, universe: "mcu", title: "Black Widow", year: 2021, 
+    tag: "🕷️ LONG OVERDUE", type: "important", mine: false, rating: 7.0, 
+    note: "Natasha finally gets her solo story. Florence Pugh as Yelena is the absolute highlight here.", 
+    fact: "Scarlett Johansson finally received her solo movie 11 years after making her debut in Iron Man 2.", 
+    symbol: "🕷"
+  },
+  {
+    id: 102, universe: "mcu", title: "Shang-Chi and the Legend of the Ten Rings", year: 2021, 
+    tag: "👊 TOP TIER ACTION", type: "fun", mine: true, rating: 8.8, 
+    note: "The hand-to-hand combat in this is arguably the best in the entire MCU. The bus fight is a masterpiece.", 
+    fact: "Simu Liu actually performed the vast majority of his own stunts, including the incredibly complex bus fight choreography.", 
+    symbol: "⭕"
+  },
+  {
+    id: 103, universe: "mcu", title: "Eternals", year: 2021, 
+    tag: "🌌 MYTHOLOGY", type: "meh", mine: false, rating: 6.5, 
+    note: "It feels very different from the rest of the MCU. It’s gorgeous, but the pacing is a bit slow.", 
+    fact: "Director Chloé Zhao opted to shoot extensively on practical, real-world locations rather than relying on Marvel's standard green screens.", 
+    symbol: "✨"
+  },
+  {
+    id: 104, universe: "mcu", title: "Spider-Man: No Way Home", year: 2021, 
+    tag: "🤯 MIND BLOWN", type: "legend", mine: true, rating: 9.5, 
+    note: "I physically cheered in the theater for this one. Avoid spoilers at all costs if you haven't seen it.", 
+    fact: "Willem Dafoe agreed to return as the Green Goblin on the strict condition that he be allowed to perform his own physical stunts.", 
+    symbol: "🕸"
+  },
+  {
+    id: 105, universe: "mcu", title: "Doctor Strange in the Multiverse of Madness", year: 2022, 
+    tag: "🧟‍♂️ HORROR VIBES", type: "fun", mine: false, rating: 7.5, 
+    note: "Director Sam Raimi brought his evil-dead horror roots to Marvel. Wanda is genuinely terrifying here.", 
+    fact: "John Krasinski's cameo as Mr. Fantastic was a direct nod to years of intense internet fan-casting campaigns.", 
+    symbol: "🪄"
+  },
+  {
+    id: 106, universe: "mcu", title: "Thor: Love and Thunder", year: 2022, 
+    tag: "🎸 CHAOTIC", type: "meh", mine: false, rating: 6.0, 
+    note: "Very silly, maybe a bit too much. But Christian Bale goes incredibly hard as the villain.", 
+    fact: "The recurring joke of the screaming goats was directly inspired by a viral meme of a goat screaming over a Taylor Swift song.", 
+    symbol: "⌁"
+  },
+  {
+    id: 107, universe: "mcu", title: "Black Panther: Wakanda Forever", year: 2022, 
+    tag: "🌊 HEAVY TRIBUTE", type: "important", mine: true, rating: 8.5, 
+    note: "A beautifully handled, emotional tribute to Chadwick Boseman. Namor is an incredible antagonist.", 
+    fact: "Rihanna recorded original music for the film's soundtrack—it was her first solo release in several years.", 
+    symbol: "🐾"
+  },
+
+  // Special Presentations
+  {
+    id: 108, universe: "mcu", title: "Werewolf by Night", year: 2022, 
+    tag: "🐺 CLASSIC MONSTER", type: "fun", mine: false, rating: 8.0, 
+    note: "A black-and-white homage to classic 1930s monster movies. It is totally unique and absolutely brilliant.", 
+    fact: "The original comic was created only after the strict 1950s Comics Code Authority finally relaxed its rules prohibiting werewolf stories.", 
+    symbol: "🌕"
+  },
+  {
+    id: 109, universe: "mcu", title: "The Guardians of the Galaxy Holiday Special", year: 2022, 
+    tag: "🎄 WHOLESOME", type: "fun", mine: false, rating: 7.5, 
+    note: "Pure, unfiltered joy. Drax and Mantis trying to kidnap Kevin Bacon for Christmas.", 
+    fact: "It was filmed concurrently during the production of Guardians of the Galaxy Vol. 3, utilizing the exact same massive sets.", 
+    symbol: "🚀"
+  },
+
+  // Phase 5
+  {
+    id: 110, universe: "mcu", title: "Ant-Man and the Wasp: Quantumania", year: 2023, 
+    tag: "🔬 WEIRD WORLD", type: "meh", mine: false, rating: 5.5, 
+    note: "A massive CGI trip. It introduces the main Multiverse villain, but it's a bit overwhelming visually.", 
+    fact: "The film heavily utilized 'The Volume'—the same groundbreaking immersive LED screen technology used for The Mandalorian.", 
+    symbol: "🐜"
+  },
+  {
+    id: 111, universe: "mcu", title: "Guardians of the Galaxy Vol. 3", year: 2023, 
+    tag: "😭 PERFECT CLOSURE", type: "legend", mine: true, rating: 9.5, 
+    note: "The perfect ending for this team. Rocket's backstory will absolutely break your heart.", 
+    fact: "The movie set an official world record for the most prosthetic makeup appliances ever created for a single film.", 
+    symbol: "🚀"
+  },
+  {
+    id: 112, universe: "mcu", title: "The Marvels", year: 2023, 
+    tag: "✨ BREEZY FUN", type: "fun", mine: false, rating: 6.5, 
+    note: "A genuinely fun, chaotic team-up. Iman Vellani (Ms. Marvel) completely steals the show.", 
+    fact: "At exactly 1 hour and 45 minutes long, it currently holds the record for the shortest runtime of any feature film in the MCU.", 
+    symbol: "⭐"
+  },
+  {
+    id: 113, universe: "mcu", title: "Deadpool & Wolverine", year: 2024, 
+    tag: "⚔️ ABSOLUTE MADNESS", type: "legend", mine: true, rating: 9.0, 
+    note: "They actually brought him back. It is incredibly violent, incredibly funny, and completely insane.", 
+    fact: "Hugh Jackman had retired from the role, but while driving he realized he desperately wanted to do a Deadpool team-up and immediately called Ryan Reynolds.", 
+    symbol: "⚔️"
+  },
+  {
+    id: 114, universe: "mcu", title: "Captain America: Brave New World", year: 2025, 
+    tag: "🛡️ NEW ERA", type: "important", mine: false, rating: 7.5, 
+    note: "Sam Wilson finally takes up the shield on the big screen.", 
+    fact: "This film marks Harrison Ford's debut in the MCU, stepping in to play Thaddeus 'Thunderbolt' Ross following the passing of William Hurt.", 
+    symbol: "🦅"
+  },
+  {
+    id: 115, universe: "mcu", title: "Thunderbolts*", year: 2025, 
+    tag: "⚡ ANTI-HEROES", type: "fun", mine: false, rating: 8.0, 
+    note: "Marvel's version of the Suicide Squad. Yelena and Bucky interacting is going to be gold.", 
+    fact: "Kevin Feige specifically noted that the asterisk in the title is intentional and its meaning will be revealed during the film.", 
+    symbol: "⚡"
+  },
+
+  // Phase 6 / Upcoming
+  {
+    id: 116, universe: "mcu", title: "The Fantastic Four: First Steps", year: 2025, 
+    tag: "🪐 RETRO SCI-FI", type: "important", mine: true, rating: 8.5, 
+    note: "Marvel's First Family is finally here.", 
+    fact: "Rather than taking place in the modern MCU timeline, this film is set in a retro-futuristic, alternate-universe 1960s.", 
+    symbol: "4️⃣"
+  },
+  {
+    id: 117, universe: "mcu", title: "Avengers: Doomsday", year: 2026, 
+    tag: "🚨 UPCOMING", type: "important", mine: true, rating: 0, 
+    note: "The Russo brothers are back. This is one of the big ones we're waiting for.", 
+    fact: "Marvel currently lists Avengers: Doomsday for December 18, 2026.", 
+    symbol: "A"
+}
 ];
