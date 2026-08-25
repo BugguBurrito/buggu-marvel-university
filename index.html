@@ -594,9 +594,7 @@ function openControl() { document.getElementById("modal").classList.add("show");
 function closeModal() { document.getElementById("modal").classList.remove("show"); }
 function login() { if(document.getElementById("pin").value !== DEFAULT_PIN) { toast("Wrong PIN 😭"); return; } document.getElementById("loginBox").classList.add("hidden"); document.getElementById("controlBox").classList.remove("hidden"); renderControls(); }
 
-function triggerControlSearch() {
-  renderControls();
-}
+const triggerControlSearch = debounce(() => renderControls(), 250);
 
 function renderControls() {
   if (document.getElementById("controlBox").classList.contains("hidden")) return;
