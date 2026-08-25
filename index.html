@@ -613,7 +613,7 @@ function renderControls() {
   
   const modalBox = document.querySelector("#modal .modal-box");
   modalBox.removeEventListener("scroll", handleControlScroll);
-  modalBox.addEventListener("scroll", handleControlScroll);
+ modalBox.addEventListener("scroll", handleControlScroll, { passive: true });
 }
 
 function loadMoreControls() {
@@ -626,10 +626,23 @@ function loadMoreControls() {
   controlRenderCount += CONTROL_BATCH_SIZE;
 }
 
+let controlScrollLoading = false;
+
 function handleControlScroll(e) {
+  if (controlScrollLoading) return;
+
   const { scrollTop, scrollHeight, clientHeight } = e.target;
-  if (scrollTop + clientHeight >= scrollHeight - 150) {
-    loadMoreControls();
+
+  if (scrollTop + clientHeight >= scrollHeight - 200) {
+    controlScrollLoading = true;
+
+    requestAnimationFrame(() => {
+      loadMoreControls();
+
+      setTimeout(() => {
+        controlScrollLoading = false;
+      }, 100);
+    });
   }
 }
 
