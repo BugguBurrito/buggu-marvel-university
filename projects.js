@@ -333,7 +333,7 @@ const marvelDatabase = [
     fact: "Marvel currently lists Avengers: Doomsday for December 18, 2026.", 
     symbol: "A"
 }
-];,
+},
 // ==========================================
   // BATCH 3: SONY SPIDER-VERSE & SSU
   // ==========================================
@@ -442,4 +442,4 @@ const marvelDatabase = [
     note: "The grand finale. We are watching this opening night.", 
     fact: "Originally slated for March 2024, the film was indefinitely delayed to ensure the animators had enough time to maintain the franchise's groundbreaking visual quality.", 
     symbol: "🕸"
-  }
+];
