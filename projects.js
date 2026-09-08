@@ -333,4 +333,113 @@ const marvelDatabase = [
     fact: "Marvel currently lists Avengers: Doomsday for December 18, 2026.", 
     symbol: "A"
 }
-];
+];,
+// ==========================================
+  // BATCH 3: SONY SPIDER-VERSE & SSU
+  // ==========================================
+
+  // Sam Raimi Trilogy
+  {
+    id: 201, universe: "sony", title: "Spider-Man", year: 2002, 
+    tag: "🕸️ THE OG", type: "legend", mine: true, rating: 8.5, 
+    note: "The Tobey Maguire era. This is where modern superhero movies really started.", 
+    fact: "Tobey Maguire actually caught all the food on the lunch tray himself without CGI—it took 156 takes to get it right.", 
+    symbol: "🕸"
+  },
+  {
+    id: 202, universe: "sony", title: "Spider-Man 2", year: 2004, 
+    tag: "🐐 MASTERPIECE", type: "legend", mine: true, rating: 9.5, 
+    note: "Doc Ock is one of the greatest villains ever put on screen. The train scene is iconic.", 
+    fact: "The terrifying hospital surgery scene with Doc Ock was initially shot as a practical effects test for the tentacles, but worked so well they kept it.", 
+    symbol: "🐙"
+  },
+  {
+    id: 203, universe: "sony", title: "Spider-Man 3", year: 2007, 
+    tag: "🕺 EMO PETER", type: "fun", mine: false, rating: 6.5, 
+    note: "Get ready for some highly questionable dance moves. It's messy, but we love it.", 
+    fact: "Director Sam Raimi didn't originally want to include Venom in the film, preferring classic villains, but the studio forced his inclusion.", 
+    symbol: "🕷"
+  },
+
+  // Marc Webb Duology
+  {
+    id: 204, universe: "sony", title: "The Amazing Spider-Man", year: 2012, 
+    tag: "🛹 SKATER VIBES", type: "fun", mine: false, rating: 7.5, 
+    note: "Andrew Garfield's take. It's moodier, and the web-swinging looks absolutely amazing.", 
+    fact: "The film intentionally returned to practical, mechanical web-shooters instead of organic webbing to emphasize Peter Parker's scientific genius.", 
+    symbol: "🕸"
+  },
+  {
+    id: 205, universe: "sony", title: "The Amazing Spider-Man 2", year: 2014, 
+    tag: "💔 EMOTIONAL", type: "important", mine: true, rating: 7.2, 
+    note: "The chemistry between Peter and Gwen is unmatched. Prepare yourself emotionally.", 
+    fact: "Hans Zimmer composed Electro's chaotic, dubstep-influenced theme by incorporating the voices of real people whispering paranoia into the track.", 
+    symbol: "⚡"
+  },
+
+  // Sony's Spider-Man Universe (SSU)
+  {
+    id: 206, universe: "sony", title: "Venom", year: 2018, 
+    tag: "👽 BUDDY COP", type: "fun", mine: false, rating: 7.0, 
+    note: "It's ridiculous, but Tom Hardy arguing with an alien in his head is great entertainment.", 
+    fact: "Tom Hardy stated that his twitchy, erratic performance as Eddie Brock was heavily inspired by Woody Allen, Conor McGregor, and the rapper Redman.", 
+    symbol: "🕷"
+  },
+  {
+    id: 207, universe: "sony", title: "Venom: Let There Be Carnage", year: 2021, 
+    tag: "🩸 CHAOS", type: "fun", mine: false, rating: 6.5, 
+    note: "Woody Harrelson wearing a terrible wig and causing absolute mayhem.", 
+    fact: "Andy Serkis was hired to direct primarily because of his extensive, groundbreaking experience acting in and directing motion-capture performances.", 
+    symbol: "👽"
+  },
+  {
+    id: 208, universe: "sony", title: "Morbius", year: 2022, 
+    tag: "🦇 IT'S MORBIN TIME", type: "meh", mine: false, rating: 3.5, 
+    note: "We are watching this purely for the memes. It is a cinematic fever dream.", 
+    fact: "Jared Leto was so committed to method acting that he used crutches to limp to the bathroom, slowing down production so much he was eventually given a wheelchair.", 
+    symbol: "🦇"
+  },
+  {
+    id: 209, universe: "sony", title: "Madame Web", year: 2024, 
+    tag: "🔮 DISASTER", type: "meh", mine: false, rating: 3.0, 
+    note: "An absolute mess of a movie. We have to watch it at least once just to witness how wild it is.", 
+    fact: "The film features Adam Scott as a young Ben Parker and Emma Roberts as Mary Parker, placing it shortly before the birth of Peter Parker.", 
+    symbol: "🔮"
+  },
+  {
+    id: 210, universe: "sony", title: "Venom: The Last Dance", year: 2024, 
+    tag: "🐎 SYMBIOTE HORSE", type: "fun", mine: false, rating: 6.8, 
+    note: "The finale of the Venom trilogy. We get a symbiote horse, which is all I ever wanted.", 
+    fact: "This film marks the directorial debut of Kelly Marcel, who wrote the screenplays for the first two Venom movies.", 
+    symbol: "🐎"
+  },
+  {
+    id: 211, universe: "sony", title: "Kraven the Hunter", year: 2024, 
+    tag: "🦁 BRUTAL", type: "fun", mine: false, rating: 6.5, 
+    note: "Aaron Taylor-Johnson goes full feral. Very bloody.", 
+    fact: "This film marks Sony's first R-rated Marvel adaptation, aiming for a much darker and more violent tone than their previous villain origin stories.", 
+    symbol: "🦁"
+  },
+
+  // Animated Spider-Verse
+  {
+    id: 212, universe: "animated", title: "Spider-Man: Into the Spider-Verse", year: 2018, 
+    tag: "🎨 ART", type: "legend", mine: true, rating: 10.0, 
+    note: "Every single frame is a painting. One of the greatest movies ever made.", 
+    fact: "It took 140 animators to create the film, which was the largest crew Sony Pictures Animation had ever used at the time.", 
+    symbol: "🕸"
+  },
+  {
+    id: 213, universe: "animated", title: "Spider-Man: Across the Spider-Verse", year: 2023, 
+    tag: "🤯 MIND BLOWING", type: "legend", mine: true, rating: 9.8, 
+    note: "Somehow, they made the animation even crazier. A masterpiece that ends on a massive cliffhanger.", 
+    fact: "The film features six completely different animation styles to visually represent each character's specific home universe.", 
+    symbol: "🌌"
+  },
+  {
+    id: 214, universe: "animated", title: "Spider-Man: Beyond the Spider-Verse", year: 2027, 
+    tag: "🚨 UPCOMING", type: "important", mine: true, rating: 0, 
+    note: "The grand finale. We are watching this opening night.", 
+    fact: "Originally slated for March 2024, the film was indefinitely delayed to ensure the animators had enough time to maintain the franchise's groundbreaking visual quality.", 
+    symbol: "🕸"
+  }
